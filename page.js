@@ -6,41 +6,22 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var d = [{
-  "name": "A",
-  "uv": 4000
-}, {
-  "name": "B",
-  "uv": 3000
-}, {
-  "name": "C",
-  "uv": 2000
-}, {
-  "name": "D",
-  "uv": 2780
-}, {
-  "name": "E",
-  "uv": 1890
-}, {
-  "name": "F",
-  "uv": 2390
-}, {
-  "name": "G",
-  "uv": 3490
-}];
-
 function Chart(props) {
   return React.createElement(
-    Recharts.LineChart,
-    { width: 730, height: 250, data: props.data,
-      margin: { top: 5, right: 30, left: 20, bottom: 5 } },
-    React.createElement(Recharts.CartesianGrid, { strokeDasharray: "3 3" }),
-    React.createElement(Recharts.XAxis, { dataKey: "name" }),
-    React.createElement(Recharts.YAxis, null),
-    React.createElement(Recharts.Tooltip, null),
-    React.createElement(Recharts.Legend, null),
-    React.createElement(Recharts.Line, { type: "monotone", dataKey: "pv", stroke: "#8884d8" }),
-    React.createElement(Recharts.Line, { type: "monotone", dataKey: "uv", stroke: "#82ca9d" })
+    Recharts.ResponsiveContainer,
+    null,
+    React.createElement(
+      Recharts.LineChart,
+      { data: props.data,
+        margin: { top: 5, right: 30, left: 20, bottom: 5 } },
+      React.createElement(Recharts.CartesianGrid, { strokeDasharray: "3 3" }),
+      React.createElement(Recharts.XAxis, { dataKey: "name" }),
+      React.createElement(Recharts.YAxis, null),
+      React.createElement(Recharts.Tooltip, null),
+      React.createElement(Recharts.Legend, null),
+      React.createElement(Recharts.Line, { type: "monotone", dataKey: "pv", stroke: "#8884d8" }),
+      React.createElement(Recharts.Line, { type: "monotone", dataKey: "uv", stroke: "#82ca9d" })
+    )
   );
 }
 
@@ -49,15 +30,6 @@ function Layout(props) {
   return React.createElement(
     "div",
     null,
-    React.createElement(
-      "div",
-      { className: "row header" },
-      React.createElement(
-        "h2",
-        null,
-        "Graficos."
-      )
-    ),
     React.createElement(
       "div",
       { className: "row body" },

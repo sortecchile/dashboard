@@ -1,47 +1,17 @@
-const d = [
-  {
-    "name": "A",
-    "uv": 4000
-  },
-  {
-    "name": "B",
-    "uv": 3000
-  },
-  {
-    "name": "C",
-    "uv": 2000
-  },
-  {
-    "name": "D",
-    "uv": 2780
-  },
-  {
-    "name": "E",
-    "uv": 1890
-  },
-  {
-    "name": "F",
-    "uv": 2390
-  },
-  {
-    "name": "G",
-    "uv": 3490
-  }
-]
-
-
 function Chart(props) {
   return (
-    <Recharts.LineChart width={730} height={250} data={props.data}
-      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-      <Recharts.CartesianGrid strokeDasharray="3 3" />
-      <Recharts.XAxis dataKey="name" />
-      <Recharts.YAxis />
-      <Recharts.Tooltip />
-      <Recharts.Legend />
-      <Recharts.Line type="monotone" dataKey="pv" stroke="#8884d8" />
-      <Recharts.Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-    </Recharts.LineChart>
+    <Recharts.ResponsiveContainer>
+      <Recharts.LineChart data={props.data}
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <Recharts.CartesianGrid strokeDasharray="3 3" />
+        <Recharts.XAxis dataKey="name" />
+        <Recharts.YAxis />
+        <Recharts.Tooltip />
+        <Recharts.Legend />
+        <Recharts.Line type="monotone" dataKey="pv" stroke="#8884d8" />
+        <Recharts.Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+      </Recharts.LineChart>
+    </Recharts.ResponsiveContainer>
   );
 }
 
@@ -49,9 +19,6 @@ function Layout(props) {
 
   return (
     <div>
-      <div className="row header" >
-        <h2>Graficos.</h2>
-      </div>
       <div className="row body" >
         <Chart data={props.data} ></Chart>
       </div>
