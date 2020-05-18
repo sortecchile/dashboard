@@ -1,0 +1,27 @@
+{
+  "name": "front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "page.js",
+  "scripts": {
+    "dev": "npx babel --watch src --out-dir . --presets react-app/prod",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sortecchile/front.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sortecchile/front/issues"
+  },
+  "homepage": "https://github.com/sortecchile/front#readme",
+  "dependencies": {
+    "babel-preset-react-app": "^3.1.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
+}
