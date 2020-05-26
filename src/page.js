@@ -37,7 +37,7 @@ class LayoutContainer extends React.Component {
   }
 
   loadData = (metric_id) => {
-    fetch(`https://api-2753bae4zq-uc.a.run.app/metrics/6cedc79c`)
+    fetch(`https://api.citylink.cl/metrics/6cedc79c`)
     .then(res => res.json())
     .then((result) => {
       let data = [];

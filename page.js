@@ -47,7 +47,7 @@ var LayoutContainer = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (LayoutContainer.__proto__ || Object.getPrototypeOf(LayoutContainer)).call(this, props));
 
     _this.loadData = function (metric_id) {
-      fetch("https://api-2753bae4zq-uc.a.run.app/metrics/6cedc79c").then(function (res) {
+      fetch("https://api.citylink.cl/metrics/6cedc79c").then(function (res) {
         return res.json();
       }).then(function (result) {
         var data = [];
