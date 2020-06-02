@@ -7,6 +7,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function Chart(props) {
+  console.log(props);
   return React.createElement(
     Recharts.ResponsiveContainer,
     null,
@@ -25,32 +26,20 @@ function Chart(props) {
   );
 }
 
-function Layout(props) {
+var ChartContainer = function (_React$Component) {
+  _inherits(ChartContainer, _React$Component);
 
-  return React.createElement(
-    "div",
-    null,
-    React.createElement(
-      "div",
-      { className: "row body" },
-      React.createElement(Chart, { data: props.data })
-    )
-  );
-}
+  function ChartContainer(props) {
+    _classCallCheck(this, ChartContainer);
 
-var LayoutContainer = function (_React$Component) {
-  _inherits(LayoutContainer, _React$Component);
+    var _this = _possibleConstructorReturn(this, (ChartContainer.__proto__ || Object.getPrototypeOf(ChartContainer)).call(this, props));
 
-  function LayoutContainer(props) {
-    _classCallCheck(this, LayoutContainer);
-
-    var _this = _possibleConstructorReturn(this, (LayoutContainer.__proto__ || Object.getPrototypeOf(LayoutContainer)).call(this, props));
-
-    _this.loadData = function (metric_id) {
-      fetch("https://api.citylink.cl/metrics/6cedc79c").then(function (res) {
+    _this.loadData = function () {
+      fetch("https://api.citylink.cl/metrics/" + _this.props.metricId).then(function (res) {
         return res.json();
       }).then(function (result) {
         var data = [];
+        var name = result.metric.name.replace("_", " ");
         for (var metric in result.metric.data) {
           console.log(result.metric.data[metric]);
           data.push({
@@ -59,7 +48,8 @@ var LayoutContainer = function (_React$Component) {
           });
         }
         _this.setState({
-          data: data
+          data: data,
+          name: name
         });
 
         setTimeout(_this.loadData, 1000);
@@ -67,21 +57,91 @@ var LayoutContainer = function (_React$Component) {
     };
 
     _this.state = {
-      data: []
+      data: [],
+      name: "---"
     };
+    console.log("llelgaaa", props);
     _this.loadData();
     return _this;
   }
 
-  _createClass(LayoutContainer, [{
+  _createClass(ChartContainer, [{
     key: "render",
     value: function render() {
-      return React.createElement(Layout, { data: this.state.data });
+      return React.createElement(
+        "div",
+        { "class": "col-xs-12 col-md-6" },
+        React.createElement(
+          "div",
+          { className: "card" },
+          React.createElement(
+            "div",
+            { className: "card-body" },
+            React.createElement(
+              "div",
+              { className: "pull-left" },
+              React.createElement(
+                "h4",
+                { className: "card-title" },
+                this.state.name
+              )
+            ),
+            React.createElement(
+              "div",
+              { className: "pull-right", "data-toggle": "buttons" },
+              React.createElement(
+                "label",
+                { className: "btn btn-outline-primary btn-xs btn-pill active" },
+                React.createElement("input", { type: "radio", name: "options", id: "option1" }),
+                " Past 24hr"
+              ),
+              React.createElement(
+                "label",
+                { className: "btn btn-outline-primary btn-xs btn-pill" },
+                React.createElement("input", { type: "radio", name: "options", id: "option2" }),
+                " Past 7 days"
+              ),
+              React.createElement(
+                "label",
+                { className: "btn btn-outline-primary btn-xs btn-pill" },
+                React.createElement("input", { type: "radio", name: "options", id: "option3" }),
+                " Past 30 days"
+              )
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "card-body" },
+            React.createElement(
+              "div",
+              { className: "card-chart", id: "page-container", style: { height: "200px" } },
+              React.createElement(
+                "div",
+                { className: "row body" },
+                React.createElement(Chart, { data: this.state.data })
+              )
+            )
+          )
+        )
+      );
     }
   }]);
 
-  return LayoutContainer;
+  return ChartContainer;
 }(React.Component);
 
+function Layout(props) {
+
+  return React.createElement(
+    "div",
+    null,
+    React.createElement(ChartContainer, { metricId: "6cedc79c" }),
+    React.createElement(ChartContainer, { metricId: "67424534" }),
+    React.createElement(ChartContainer, { metricId: "7d384f6a" }),
+    React.createElement(ChartContainer, { metricId: "bf9c3de0" }),
+    React.createElement(ChartContainer, { metricId: "f0e2a10e" })
+  );
+}
+
 var root = document.getElementById("page-container");
-ReactDOM.render(React.createElement(LayoutContainer, null), root);
+ReactDOM.render(React.createElement(Layout, null), root);

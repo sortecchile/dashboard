@@ -311,31 +311,7 @@
     <!-- uiView: -->
     <div class="layout-content" ui-view="">
       <div class="layout-content-body">
-        <div class="row gutter-xs">
-          <div class="col-xs-12 col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <div class="pull-left">
-                  <h4 class="card-title">Humedad</h4>
-                </div>
-                <div class="pull-right" data-toggle="buttons">
-                  <label class="btn btn-outline-primary btn-xs btn-pill active">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked="checked"> Past 24hr
-                  </label>
-                  <label class="btn btn-outline-primary btn-xs btn-pill">
-                    <input type="radio" name="options" id="option2" autocomplete="off"> Past 7 days
-                  </label>
-                  <label class="btn btn-outline-primary btn-xs btn-pill">
-                    <input type="radio" name="options" id="option3" autocomplete="off"> Past 30 days
-                  </label>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="card-chart" id="page-container" style="height: 200px;">
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="row gutter-xs" id="page-container">
         </div>
       </div>
     </div>
