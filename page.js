@@ -6,8 +6,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function Chart(props) {
-  console.log(props);
+function LineChart(props) {
   return React.createElement(
     Recharts.ResponsiveContainer,
     null,
@@ -15,15 +14,59 @@ function Chart(props) {
       Recharts.LineChart,
       { data: props.data,
         margin: { top: 5, right: 30, left: 20, bottom: 5 } },
-      React.createElement(Recharts.CartesianGrid, { strokeDasharray: "3 3" }),
+      React.createElement(Recharts.CartesianGrid, { stroke: "#101822", strokeDasharray: "3 3" }),
       React.createElement(Recharts.XAxis, { dataKey: "name" }),
       React.createElement(Recharts.YAxis, null),
       React.createElement(Recharts.Tooltip, null),
       React.createElement(Recharts.Legend, null),
-      React.createElement(Recharts.Line, { type: "monotone", dataKey: "pv", stroke: "#8884d8" }),
-      React.createElement(Recharts.Line, { type: "monotone", dataKey: "uv", stroke: "#82ca9d" })
+      React.createElement(Recharts.Line, { type: "linear", dataKey: "uv", stroke: props.color })
     )
   );
+}
+
+function AreaChart(props) {
+  return React.createElement(
+    Recharts.ResponsiveContainer,
+    null,
+    React.createElement(
+      Recharts.AreaChart,
+      { data: props.data,
+        margin: { top: 5, right: 30, left: 20, bottom: 5 } },
+      React.createElement(Recharts.CartesianGrid, { stroke: "#101822", strokeDasharray: "3 3" }),
+      React.createElement(Recharts.XAxis, { dataKey: "name" }),
+      React.createElement(Recharts.YAxis, null),
+      React.createElement(Recharts.Tooltip, null),
+      React.createElement(Recharts.Area, { type: "linear", dataKey: "uv", stroke: props.color, fill: props.color, fillOpacity: 1 })
+    )
+  );
+}
+
+function BarChart(props) {
+  return React.createElement(
+    Recharts.ResponsiveContainer,
+    null,
+    React.createElement(
+      Recharts.BarChart,
+      {
+        width: 500,
+        height: 300,
+        data: props.data,
+        margin: {
+          top: 20, right: 30, left: 20, bottom: 5
+        }
+      },
+      React.createElement(Recharts.CartesianGrid, { stroke: "#101822", strokeDasharray: "3 3" }),
+      React.createElement(Recharts.XAxis, { dataKey: "name" }),
+      React.createElement(Recharts.YAxis, null),
+      React.createElement(Recharts.Tooltip, null),
+      React.createElement(Recharts.Legend, null),
+      React.createElement(Recharts.Bar, { dataKey: "uv", stackId: "a", fill: props.color, fillOpacity: 1 })
+    )
+  );
+}
+
+function Chart(props) {
+  if (props.chartType == "Area") return React.createElement(AreaChart, { color: props.color, data: props.data });else if (props.chartType == "Line") return React.createElement(LineChart, { color: props.color, data: props.data });else if (props.chartType == "Bar") return React.createElement(BarChart, { color: props.color, data: props.data });
 }
 
 var ChartContainer = function (_React$Component) {
@@ -41,7 +84,6 @@ var ChartContainer = function (_React$Component) {
         var data = [];
         var name = result.metric.name.replace("_", " ");
         for (var metric in result.metric.data) {
-          console.log(result.metric.data[metric]);
           data.push({
             "name": result.metric.data[metric].creation_date,
             "uv": result.metric.data[metric].value
@@ -60,7 +102,6 @@ var ChartContainer = function (_React$Component) {
       data: [],
       name: "---"
     };
-    console.log("llelgaaa", props);
     _this.loadData();
     return _this;
   }
@@ -70,7 +111,7 @@ var ChartContainer = function (_React$Component) {
     value: function render() {
       return React.createElement(
         "div",
-        { "class": "col-xs-12 col-md-6" },
+        { className: "col-xs-12 col-md-6" },
         React.createElement(
           "div",
           { className: "card" },
@@ -83,7 +124,7 @@ var ChartContainer = function (_React$Component) {
               React.createElement(
                 "h4",
                 { className: "card-title" },
-                this.state.name
+                this.state.name[0].toUpperCase() + this.state.name.slice(1)
               )
             ),
             React.createElement(
@@ -93,19 +134,19 @@ var ChartContainer = function (_React$Component) {
                 "label",
                 { className: "btn btn-outline-primary btn-xs btn-pill active" },
                 React.createElement("input", { type: "radio", name: "options", id: "option1" }),
-                " Past 24hr"
+                " \xDAltimas 24hr"
               ),
               React.createElement(
                 "label",
                 { className: "btn btn-outline-primary btn-xs btn-pill" },
                 React.createElement("input", { type: "radio", name: "options", id: "option2" }),
-                " Past 7 days"
+                " \xDAltimos 7 d\xEDas"
               ),
               React.createElement(
                 "label",
                 { className: "btn btn-outline-primary btn-xs btn-pill" },
                 React.createElement("input", { type: "radio", name: "options", id: "option3" }),
-                " Past 30 days"
+                " \xDAltimos 30 d\xEDas"
               )
             )
           ),
@@ -118,7 +159,7 @@ var ChartContainer = function (_React$Component) {
               React.createElement(
                 "div",
                 { className: "row body" },
-                React.createElement(Chart, { data: this.state.data })
+                React.createElement(Chart, { color: this.props.color, chartType: this.props.chartType, data: this.state.data })
               )
             )
           )
@@ -135,11 +176,10 @@ function Layout(props) {
   return React.createElement(
     "div",
     null,
-    React.createElement(ChartContainer, { metricId: "6cedc79c" }),
-    React.createElement(ChartContainer, { metricId: "67424534" }),
-    React.createElement(ChartContainer, { metricId: "7d384f6a" }),
-    React.createElement(ChartContainer, { metricId: "bf9c3de0" }),
-    React.createElement(ChartContainer, { metricId: "f0e2a10e" })
+    React.createElement(ChartContainer, { color: "#7c55fb", chartType: "Area", metricId: "6cedc79c" }),
+    React.createElement(ChartContainer, { color: "#63d9ad", chartType: "Area", metricId: "bf9c3de0" }),
+    React.createElement(ChartContainer, { color: "#63d9ad", chartType: "Area", metricId: "7d384f6a" }),
+    React.createElement(ChartContainer, { color: "#63d9ad", chartType: "Bar", metricId: "f0e2a10e" })
   );
 }
 
