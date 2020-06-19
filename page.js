@@ -171,15 +171,117 @@ var ChartContainer = function (_React$Component) {
   return ChartContainer;
 }(React.Component);
 
+function IOControl(props) {
+  return React.createElement(
+    "div",
+    { className: "col-xs-6 col-md-3" },
+    React.createElement(
+      "div",
+      { className: "card" },
+      React.createElement(
+        "div",
+        { className: "card-values" },
+        React.createElement(
+          "div",
+          { className: "p-x" },
+          React.createElement(
+            "small",
+            null,
+            props.name[0].toUpperCase() + props.name.slice(1)
+          )
+        )
+      ),
+      React.createElement(
+        "div",
+        { className: "card-chart" },
+        React.createElement(
+          "button",
+          { onClick: props.onChange, className: "btn btn-sm btn-block " + (props.value ? "btn-primary" : "btn-outline-danger") },
+          props.value ? "Encendido" : "Apagado"
+        )
+      )
+    )
+  );
+}
+
+var IOControlContainer = function (_React$Component2) {
+  _inherits(IOControlContainer, _React$Component2);
+
+  function IOControlContainer(props) {
+    _classCallCheck(this, IOControlContainer);
+
+    var _this2 = _possibleConstructorReturn(this, (IOControlContainer.__proto__ || Object.getPrototypeOf(IOControlContainer)).call(this, props));
+
+    _this2.loadCurrentState = function () {
+      fetch("https://api.citylink.cl/controls/" + _this2.props.controlId).then(function (res) {
+        return res.json();
+      }).then(function (result) {
+        _this2.setState({
+          value: result.control.data[0].value
+        });
+      });
+    };
+
+    _this2.onChange = function () {
+      // hit api
+      console.log("value=" + (_this2.state.value ? "false" : "true"));
+      fetch("https://api.citylink.cl/controls/" + _this2.props.controlId, {
+        method: 'POST',
+        body: "value=" + (_this2.state.value ? "false" : "true"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      }).then(function (res) {
+        return res.json();
+      }).then(function (result) {
+        console.log(result);
+        // load current status
+        _this2.loadCurrentState();
+      });
+
+      // change status
+      _this2.setState({
+        value: !_this2.state.value
+      });
+    };
+
+    _this2.render = function () {
+      return React.createElement(IOControl, Object.assign({}, _this2.state, { onChange: _this2.onChange }));
+    };
+
+    _this2.state = {
+      name: "name",
+      value: "-"
+    };
+
+    _this2.loadCurrentState();
+    return _this2;
+  }
+
+  return IOControlContainer;
+}(React.Component);
+
 function Layout(props) {
 
   return React.createElement(
     "div",
-    null,
-    React.createElement(ChartContainer, { color: "#7c55fb", chartType: "Area", metricId: "6cedc79c" }),
-    React.createElement(ChartContainer, { color: "#63d9ad", chartType: "Area", metricId: "bf9c3de0" }),
-    React.createElement(ChartContainer, { color: "#63d9ad", chartType: "Area", metricId: "7d384f6a" }),
-    React.createElement(ChartContainer, { color: "#63d9ad", chartType: "Bar", metricId: "f0e2a10e" })
+    { className: "layout-content-body" },
+    React.createElement(
+      "div",
+      { className: "row gutter-xs" },
+      React.createElement(IOControlContainer, { controlId: "ad804cb8" }),
+      React.createElement(IOControlContainer, { controlId: "b0a5f4e2" }),
+      React.createElement(IOControlContainer, { controlId: "b5747c6e" }),
+      React.createElement(IOControlContainer, { controlId: "b31bb41e" })
+    ),
+    React.createElement(
+      "div",
+      { className: "row gutter-xs" },
+      React.createElement(ChartContainer, { color: "#7c55fb", chartType: "Area", metricId: "6cedc79c" }),
+      React.createElement(ChartContainer, { color: "#63d9ad", chartType: "Area", metricId: "bf9c3de0" }),
+      React.createElement(ChartContainer, { color: "#63d9ad", chartType: "Area", metricId: "7d384f6a" }),
+      React.createElement(ChartContainer, { color: "#63d9ad", chartType: "Bar", metricId: "f0e2a10e" })
+    )
   );
 }
 

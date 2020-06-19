@@ -127,14 +127,95 @@ class ChartContainer extends React.Component {
   }
 }
 
+
+function IOControl(props) {
+  return (
+    <div className="col-xs-6 col-md-3">
+      <div className="card">
+        <div className="card-values">
+          <div className="p-x">
+            <small>{props.name[0].toUpperCase() + props.name.slice(1)}</small>
+          </div>
+        </div>
+        <div className="card-chart">
+          <button onClick={props.onChange} className={"btn btn-sm btn-block " + (props.value ? "btn-primary":"btn-outline-danger")} >
+            {props.value ? "Encendido":"Apagado"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+class IOControlContainer extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      name: "name",
+      value: "-"
+    };
+
+    this.loadCurrentState();
+  }
+
+  loadCurrentState = () => {
+    fetch("https://api.citylink.cl/controls/" + this.props.controlId)
+    .then((res) => res.json())
+    .then((result) => {
+      this.setState({
+        value: result.control.data[0].value
+      });
+    });
+  }
+
+  onChange = () => {
+    // hit api
+    console.log("value=" + (this.state.value ? "false": "true"));
+    fetch(
+      "https://api.citylink.cl/controls/" + this.props.controlId,
+      {
+        method: 'POST',
+        body: "value=" + (this.state.value ? "false": "true"),
+        headers:{
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      }
+    )
+    .then((res) => res.json())
+    .then((result) => {
+      console.log(result);
+      // load current status
+      this.loadCurrentState();
+    });
+
+    // change status
+    this.setState({
+      value: !this.state.value
+    });
+  }
+
+  render = () => {
+    return (<IOControl {...this.state} onChange={this.onChange} ></IOControl>);
+  }
+}
+
 function Layout(props) {
 
   return (
-    <div>
-      <ChartContainer color="#7c55fb" chartType="Area" metricId="6cedc79c" ></ChartContainer>
-      <ChartContainer color="#63d9ad" chartType="Area" metricId="bf9c3de0" ></ChartContainer>
-      <ChartContainer color="#63d9ad" chartType="Area" metricId="7d384f6a" ></ChartContainer>
-      <ChartContainer color="#63d9ad" chartType="Bar" metricId="f0e2a10e" ></ChartContainer>
+    <div className="layout-content-body" >
+      <div className="row gutter-xs">
+        <IOControlContainer controlId="ad804cb8" ></IOControlContainer>
+        <IOControlContainer controlId="b0a5f4e2" ></IOControlContainer>
+        <IOControlContainer controlId="b5747c6e" ></IOControlContainer>
+        <IOControlContainer controlId="b31bb41e" ></IOControlContainer>
+      </div>
+      <div className="row gutter-xs" >
+        <ChartContainer color="#7c55fb" chartType="Area" metricId="6cedc79c" ></ChartContainer>
+        <ChartContainer color="#63d9ad" chartType="Area" metricId="bf9c3de0" ></ChartContainer>
+        <ChartContainer color="#63d9ad" chartType="Area" metricId="7d384f6a" ></ChartContainer>
+        <ChartContainer color="#63d9ad" chartType="Bar" metricId="f0e2a10e" ></ChartContainer>
+      </div>
     </div>
   );
 }
