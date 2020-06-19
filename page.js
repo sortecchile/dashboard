@@ -217,7 +217,8 @@ var IOControlContainer = function (_React$Component2) {
         return res.json();
       }).then(function (result) {
         _this2.setState({
-          value: result.control.data[0].value
+          value: result.control.data[0].value,
+          name: result.control.name
         });
       });
     };
@@ -250,7 +251,7 @@ var IOControlContainer = function (_React$Component2) {
     };
 
     _this2.state = {
-      name: "name",
+      name: "-",
       value: "-"
     };
 

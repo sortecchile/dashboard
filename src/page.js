@@ -152,7 +152,7 @@ class IOControlContainer extends React.Component {
     super(props);
 
     this.state = {
-      name: "name",
+      name: "-",
       value: "-"
     };
 
@@ -164,7 +164,8 @@ class IOControlContainer extends React.Component {
     .then((res) => res.json())
     .then((result) => {
       this.setState({
-        value: result.control.data[0].value
+        value: result.control.data[0].value,
+        name: result.control.name
       });
     });
   }
