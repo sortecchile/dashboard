@@ -138,7 +138,7 @@ function IOControl(props) {
           </div>
         </div>
         <div className="card-chart">
-          <button onClick={props.onChange} className={"btn btn-sm btn-block " + (props.value ? "btn-primary":"btn-outline-danger")} >
+          <button disabled={props.disabled} onClick={props.onChange} className={"btn btn-sm btn-block " + (props.value ? "btn-primary":"btn-outline-danger")} >
             {props.value ? "Encendido":"Apagado"}
           </button>
         </div>
@@ -153,7 +153,8 @@ class IOControlContainer extends React.Component {
 
     this.state = {
       name: "-",
-      value: "-"
+      value: "-",
+      disabled: true
     };
 
     this.loadCurrentState();
@@ -165,12 +166,16 @@ class IOControlContainer extends React.Component {
     .then((result) => {
       this.setState({
         value: result.control.data[0].value,
+        disabled: false,
         name: result.control.name
       });
     });
   }
 
   onChange = () => {
+    this.setState({
+      disabled: true
+    })
     // hit api
     console.log("value=" + (this.state.value ? "false": "true"));
     fetch(

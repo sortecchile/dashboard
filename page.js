@@ -196,7 +196,7 @@ function IOControl(props) {
         { className: "card-chart" },
         React.createElement(
           "button",
-          { onClick: props.onChange, className: "btn btn-sm btn-block " + (props.value ? "btn-primary" : "btn-outline-danger") },
+          { disabled: props.disabled, onClick: props.onChange, className: "btn btn-sm btn-block " + (props.value ? "btn-primary" : "btn-outline-danger") },
           props.value ? "Encendido" : "Apagado"
         )
       )
@@ -218,12 +218,16 @@ var IOControlContainer = function (_React$Component2) {
       }).then(function (result) {
         _this2.setState({
           value: result.control.data[0].value,
+          disabled: false,
           name: result.control.name
         });
       });
     };
 
     _this2.onChange = function () {
+      _this2.setState({
+        disabled: true
+      });
       // hit api
       console.log("value=" + (_this2.state.value ? "false" : "true"));
       fetch("https://api.citylink.cl/controls/" + _this2.props.controlId, {
@@ -252,7 +256,8 @@ var IOControlContainer = function (_React$Component2) {
 
     _this2.state = {
       name: "-",
-      value: "-"
+      value: "-",
+      disabled: true
     };
 
     _this2.loadCurrentState();
