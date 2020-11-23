@@ -156,10 +156,6 @@ export class ChartContainer extends Component {
 
 export class IOControl extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="col-xs-6 col-md-3">
