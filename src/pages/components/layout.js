@@ -18,7 +18,7 @@ export default function WithLayout(Component) {
 
     onLogout = (user) => {
       typeof window !== 'undefined' && window.localStorage.removeItem("access_token");
-      document.location.href = "https://accounts.loadingplay.com/auth/login?next=" + encodeURI(document.location.href)
+      document.location.href = "https://accounts.loadingplay.com/auth/login?next=" + encodeURI(document.location.href + "?logout")
     }
 
     render = () => {
