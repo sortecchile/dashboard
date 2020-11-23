@@ -16,6 +16,11 @@ export default function WithLayout(Component) {
       });
     }
 
+    onLogout = (user) => {
+      typeof window !== 'undefined' && window.localStorage.removeItem("access_token");
+      document.location.href = "https://accounts.loadingplay.com/auth/login?next=" + encodeURI(document.location.href)
+    }
+
     render = () => {
       return(
         <div className="layout layout-header-fixed">
@@ -222,7 +227,7 @@ export default function WithLayout(Component) {
                     <li className="dropdown hidden-xs">
                       <button className="navbar-account-btn" data-toggle="dropdown" aria-haspopup="true" >
                         {/* <img className="circle" width="36" height="36" src="https://avatars0.githubusercontent.com/u/7415055?s=400&u=487dcd056cb1abf42a476fd3cf504d1aeb2d1ca5&v=4" alt="Teddy Wilson"></img> */}
-                        {this.state.user}
+                        {this.state.user} | <button onClick={this.onLogout} >Salir</button>
                         <span className="caret"></span>
                       </button>
                       <ul className="dropdown-menu dropdown-menu-right">
