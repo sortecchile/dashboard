@@ -19,7 +19,7 @@ export default function WithLoginController(Component) {
         "grant_type": "authorization_code",
         "client_id": "447",
         "client_secret": "3d9f6bfc222ba77ba75c4a146a2101f7",
-        "redirect_uri": encodeURI("http://localhost:8000/?access_token")
+        "redirect_uri": encodeURI("https://dashboard.citylink.cl/?access_token")
       }
       let form_data = [];
       Object.keys(data).forEach(
@@ -57,7 +57,7 @@ export default function WithLoginController(Component) {
 
     onLogin = () => {
       document.location.href = "https://accounts.loadingplay.com/oauth2/auth?"
-        + "redirect_uri=" + encodeURI("http://localhost:8000/?code&")
+        + "redirect_uri=" + encodeURI("https://dashboard.citylink.cl/?code&")
         + "site_name=dashboard&"
         + "client_id=447&"
         + "response_type=code";
