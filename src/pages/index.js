@@ -47,12 +47,10 @@ function DashboardNico(props) {
 }
 
 
-function getDashboardByUser(email)
+function getDashboardBySite(site_name)
 {
-  if (email === "ricardo@loadingplay.com")
-    return DashboardNico
-  else
-    return DashboardProvi
+  if (site_name === "provi") return DashboardProvi;
+  return DashboardNico;
 }
 
 
@@ -79,14 +77,15 @@ class Dashboard extends React.Component {
 
     this.setState({
       isLoading: false,
-      email: json_data.email
+      email: json_data.email,
+      site_name: json_data.site_name
     });
 
     this.props.onChangeUser(json_data.email)
   }
 
   render = () => {
-    const Dash = getDashboardByUser(this.state.email);
+    const Dash = getDashboardBySite(this.state.site_name);
     return (
       <>
         {

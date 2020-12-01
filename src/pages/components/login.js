@@ -1,5 +1,8 @@
 import React from 'react';
 
+
+const HOME_URL =  typeof window !== 'undefined' && document.location.protocol + "//" +  document.location.host;
+
 function Login(props) {
   return (<div><button onClick={props.onLogin} >Entrar</button></div>);
 }
@@ -19,7 +22,7 @@ export default function WithLoginController(Component) {
         "grant_type": "authorization_code",
         "client_id": "447",
         "client_secret": "3d9f6bfc222ba77ba75c4a146a2101f7",
-        "redirect_uri": encodeURI("https://dashboard.citylink.cl/?access_token")
+        "redirect_uri": encodeURI(HOME_URL + "/?access_token")
       }
       let form_data = [];
       Object.keys(data).forEach(
@@ -57,7 +60,7 @@ export default function WithLoginController(Component) {
 
     onLogin = () => {
       document.location.href = "https://accounts.loadingplay.com/oauth2/auth?"
-        + "redirect_uri=" + encodeURI("https://dashboard.citylink.cl/?code&")
+        + "redirect_uri=" + encodeURI(HOME_URL + "/?code&")
         + "site_name=dashboard&"
         + "client_id=447&"
         + "response_type=code";
