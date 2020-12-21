@@ -47,9 +47,30 @@ function DashboardNico(props) {
 }
 
 
+function DashboardAgrozzi(props) {
+  return (
+    <div className="layout-content-body" >
+      <div className="row gutter-xs">
+        {/* <IOControlContainer controlId="ad804cb8" ></IOControlContainer>
+        <IOControlContainer controlId="b0a5f4e2" ></IOControlContainer>
+        <IOControlContainer controlId="b5747c6e" ></IOControlContainer>
+        <IOControlContainer controlId="b31bb41e" ></IOControlContainer> */}
+      </div>
+      <div className="row gutter-xs" >
+        <ChartContainer color="#7c55fb" chartType="Area" metricId="ad804cb8" ></ChartContainer>
+        <ChartContainer color="#63d9ad" chartType="Area" metricId="b0a5f4e2" ></ChartContainer>
+        <ChartContainer color="#63d9ad" chartType="Area" metricId="b5747c6e" ></ChartContainer>
+        <ChartContainer color="#63d9ad" chartType="Bar" metricId="b31bb41e" ></ChartContainer>
+      </div>
+    </div>
+  );
+}
+
+
 function getDashboardBySite(site_name)
 {
   if (site_name === "provi") return DashboardProvi;
+  if (site_name === "agrozzi") return DashboardAgrozzi;
   return DashboardNico;
 }
 
