@@ -305,8 +305,10 @@ export default function WithLayout(Component) {
             </div>
           </div>
 
-          <div className="layout-content" ui-view="" id="page-container" >
-            <Component onChangeUser={this.onChangeUser} {...this.props} ></Component>
+          <div className="layout-content" ui-view="" id="page-container" style={{ marginTop: "60px" }} >
+            <div className="layout-content-body" >
+              <Component onChangeUser={this.onChangeUser} {...this.props} ></Component>
+            </div>
           </div>
 
           <div className="layout-footer">

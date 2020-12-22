@@ -12,7 +12,7 @@ import WithLoginController from "./components/login";
 function DashboardProvi(props)
 {
   return (
-  <div className="layout-content-body" >
+  <>
       <div className="row gutter-xs">
         <IOControlContainer controlId="ad804cb2" ></IOControlContainer>
       </div>
@@ -23,13 +23,13 @@ function DashboardProvi(props)
         <ChartContainer color="#63d9ad" chartType="Area" metricId="022be6f2" ></ChartContainer>
         <ChartContainer color="#63d9ad" chartType="Area" metricId="023a91c2" ></ChartContainer>
       </div>
-    </div>
+    </>
   );
 }
 
 function DashboardNico(props) {
   return (
-    <div className="layout-content-body" >
+    <>
       <div className="row gutter-xs">
         <IOControlContainer controlId="ad804cb8" ></IOControlContainer>
         <IOControlContainer controlId="b0a5f4e2" ></IOControlContainer>
@@ -42,7 +42,7 @@ function DashboardNico(props) {
         <ChartContainer color="#63d9ad" chartType="Area" metricId="7d384f6a" ></ChartContainer>
         <ChartContainer color="#63d9ad" chartType="Bar" metricId="f0e2a10e" ></ChartContainer>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -67,77 +67,76 @@ class CalculosAgrozziContainer extends React.Component {
 
   render = () => {
     return (
-      <div className="row gutter-xs" >
-        {
-          !this.state.data.metrics ?
-          "cargando...."
-          :
-          <div>
-            <div class="col-xs-6 col-md-3">
-              <div class="card">
-                <div class="card-values">
-                  <div class="p-x">
-                    <small>Día</small>
-                    <h3 class="card-title fw-l">{this.state.data.metrics[0].day}</h3>
+      <>
+          {
+            !this.state.data.metrics ?
+            "cargando...."
+            :
+            <>
+              <div class="col-xs-6 col-md-3">
+                <div class="card">
+                  <div class="card-values">
+                    <div class="p-x">
+                      <small>Día</small>
+                      <h3 class="card-title fw-l">{this.state.data.metrics[0].day}</h3>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-xs-6 col-md-3">
-              <div class="card">
-                <div class="card-values">
-                  <div class="p-x">
-                    <small>ETO</small>
-                    <h3 class="card-title fw-l">{this.state.data.metrics[0].eto.toFixed(1)}</h3>
+              <div class="col-xs-6 col-md-3">
+                <div class="card">
+                  <div class="card-values">
+                    <div class="p-x">
+                      <small>ETO</small>
+                      <h3 class="card-title fw-l">{this.state.data.metrics[0].eto.toFixed(1)}</h3>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-xs-6 col-md-3">
-              <div class="card">
-                <div class="card-values">
-                  <div class="p-x">
-                    <small>Humedad promedio</small>
-                    <h3 class="card-title fw-l">{this.state.data.metrics[0].humidity_prom.toFixed(1)}</h3>
+              <div class="col-xs-6 col-md-3">
+                <div class="card">
+                  <div class="card-values">
+                    <div class="p-x">
+                      <small>Humedad promedio</small>
+                      <h3 class="card-title fw-l">{this.state.data.metrics[0].humidity_prom.toFixed(1)}</h3>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-xs-6 col-md-3">
-              <div class="card">
-                <div class="card-values">
-                  <div class="p-x">
-                    <small>Temperatura promedio</small>
-                    <h3 class="card-title fw-l">{this.state.data.metrics[0].temp_average.toFixed(1)}</h3>
+              <div class="col-xs-6 col-md-3">
+                <div class="card">
+                  <div class="card-values">
+                    <div class="p-x">
+                      <small>Temperatura promedio</small>
+                      <h3 class="card-title fw-l">{this.state.data.metrics[0].temp_average.toFixed(1)}</h3>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-xs-6 col-md-3">
-              <div class="card">
-                <div class="card-values">
-                  <div class="p-x">
-                    <small>Velocidad promedio del viento</small>
-                    <h3 class="card-title fw-l">{this.state.data.metrics[0].wind_speed_average.toFixed(1)}</h3>
+              <div class="col-xs-6 col-md-3">
+                <div class="card">
+                  <div class="card-values">
+                    <div class="p-x">
+                      <small>Velocidad promedio del viento</small>
+                      <h3 class="card-title fw-l">{this.state.data.metrics[0].wind_speed_average.toFixed(1)}</h3>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-          </div>
-        }
-      </div>
+            </>
+          }
+        </>
     );
   }
 }
 
 function DashboardAgrozzi(props) {
   return (
-    <div className="layout-content-body" >
+    <>
       <div className="row gutter-xs">
         <CalculosAgrozziContainer></CalculosAgrozziContainer>
         {/* <IOControlContainer controlId="ad804cb8" ></IOControlContainer>
@@ -151,7 +150,7 @@ function DashboardAgrozzi(props) {
         <ChartContainer color="#63d9ad" chartType="Area" metricId="b5747c6e" ></ChartContainer>
         <ChartContainer color="#63d9ad" chartType="Bar" metricId="b31bb41e" ></ChartContainer>
       </div>
-    </div>
+    </>
   );
 }
 
