@@ -33,7 +33,6 @@ export default function CLLineChart(props) {
 }
 
 function CLAreaChart(props) {
-  console.log(props.data);
 
   return (
     <ResponsiveContainer>
@@ -209,7 +208,6 @@ export class IOControlContainer extends Component {
       disabled: true
     })
     // hit api
-    console.log("value=" + (this.state.value ? "false": "true"));
     fetch(
       "https://api.citylink.cl/controls/" + this.props.controlId,
       {

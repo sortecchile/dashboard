@@ -46,11 +46,100 @@ function DashboardNico(props) {
   );
 }
 
+class CalculosAgrozziContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {}
+    }
+  }
+
+
+  componentDidMount = async () => {
+    const response = await fetch("https://api.citylink.cl/calculo/262678678");
+    const json_data = await response.json();
+
+    this.setState({
+      data: json_data
+    });
+  }
+
+
+  render = () => {
+    return (
+      <div className="row gutter-xs" >
+        {
+          !this.state.data.metrics ?
+          "cargando...."
+          :
+          <div>
+            <div class="col-xs-6 col-md-3">
+              <div class="card">
+                <div class="card-values">
+                  <div class="p-x">
+                    <small>Día</small>
+                    <h3 class="card-title fw-l">{this.state.data.metrics[0].day}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+              <div class="card">
+                <div class="card-values">
+                  <div class="p-x">
+                    <small>ETO</small>
+                    <h3 class="card-title fw-l">{this.state.data.metrics[0].eto.toFixed(1)}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+              <div class="card">
+                <div class="card-values">
+                  <div class="p-x">
+                    <small>Humedad promedio</small>
+                    <h3 class="card-title fw-l">{this.state.data.metrics[0].humidity_prom.toFixed(1)}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+              <div class="card">
+                <div class="card-values">
+                  <div class="p-x">
+                    <small>Temperatura promedio</small>
+                    <h3 class="card-title fw-l">{this.state.data.metrics[0].temp_average.toFixed(1)}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+              <div class="card">
+                <div class="card-values">
+                  <div class="p-x">
+                    <small>Velocidad promedio del viento</small>
+                    <h3 class="card-title fw-l">{this.state.data.metrics[0].wind_speed_average.toFixed(1)}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        }
+      </div>
+    );
+  }
+}
 
 function DashboardAgrozzi(props) {
   return (
     <div className="layout-content-body" >
       <div className="row gutter-xs">
+        <CalculosAgrozziContainer></CalculosAgrozziContainer>
         {/* <IOControlContainer controlId="ad804cb8" ></IOControlContainer>
         <IOControlContainer controlId="b0a5f4e2" ></IOControlContainer>
         <IOControlContainer controlId="b5747c6e" ></IOControlContainer>
