@@ -77,8 +77,19 @@ class CalculosAgrozziContainer extends React.Component {
                 <div class="card">
                   <div class="card-values">
                     <div class="p-x">
-                      <small>Día</small>
+                      <small>Día del año</small>
                       <h3 class="card-title fw-l">{this.state.data.metrics[0].day}</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xs-6 col-md-3">
+                <div class="card">
+                  <div class="card-values">
+                    <div class="p-x">
+                      <small>Día del cultivo</small>
+                      <h3 class="card-title fw-l">{this.state.data.metrics[0].current_day}</h3>
                     </div>
                   </div>
                 </div>
