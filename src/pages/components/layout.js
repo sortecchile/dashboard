@@ -1,12 +1,14 @@
 import React from 'react';
 
+
 export default function WithLayout(Component) {
   return class extends React.Component {
 
     constructor(props){
       super(props);
       this.state = {
-        user: "Cargando..."
+        user: "Cargando...",
+        show_menu: false
       }
     }
 
@@ -42,15 +44,23 @@ export default function WithLayout(Component) {
                     <span className="bar-line bar-line-5"></span>
                   </span>
                 </button>
-                <button className="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse"
-                  data-target="#navbar">
-                  <span className="sr-only">Toggle navigation</span>
-                  <span className="arrow-up"></span>
+                <button onClick={() => { this.setState({ show_menu: !this.state.show_menu }) }} className="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#navbar">
                   <span className="ellipsis ellipsis-vertical">
                     <img className="ellipsis-object" width="32" height="32" src="img/0180441436.jpg" alt="Teddy Wilson"></img>
                   </span>
                 </button>
               </div>
+              {
+                this.state.show_menu ?
+                <div>
+                  <ul className="nav navbar-nav navbar-right" style={{backgroundColor: "#7c55fb"}} >
+                    <li className="visible-xs-block">
+                      <a onClick={this.onLogout} >{this.state.user} | Salir</a>
+                    </li>
+                  </ul>
+                </div>
+                : null
+              }
               <div className="navbar-toggleable">
                 <nav id="navbar" className="navbar-collapse collapse">
                   <button className="sidenav-toggler hidden-xs" type="button">
