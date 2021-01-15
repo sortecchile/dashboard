@@ -37,6 +37,7 @@ function DashboardNico(props) {
         <IOControlContainer controlId="b31bb41e" ></IOControlContainer>
       </div>
       <div className="row gutter-xs" >
+        <ChartContainer color="#7c55fb" chartType="Area" metricId="ee123498" ></ChartContainer>
         <ChartContainer color="#7c55fb" chartType="Area" metricId="6cedc79c" ></ChartContainer>
         <ChartContainer color="#63d9ad" chartType="Area" metricId="bf9c3de0" ></ChartContainer>
         <ChartContainer color="#63d9ad" chartType="Area" metricId="7d384f6a" ></ChartContainer>
