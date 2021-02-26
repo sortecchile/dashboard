@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 
 import "../styles/vendor.css";
 import "../styles/elephant.css";
@@ -7,6 +7,7 @@ import "../styles/application.css";
 import { IOControlContainer, ChartContainer } from "./components/page";
 import WithLayout from "./components/layout";
 import WithLoginController from "./components/login";
+import { CSVLink } from "react-csv";
 
 
 function DashboardProvi(props)
@@ -59,6 +60,8 @@ class CalculosAgrozziContainer extends React.Component {
   componentDidMount = async () => {
     const response = await fetch("https://api.citylink.cl/calculo/262678678");
     const json_data = await response.json();
+
+    this.props.OnDataLoaded(json_data);
 
     this.setState({
       data: json_data
@@ -168,11 +171,32 @@ class CalculosAgrozziContainer extends React.Component {
   }
 }
 
+function CsvDownloader(props) {
+
+  return (
+    <CSVLink {...props} target="_blank" >descargar csv</CSVLink>
+  );
+}
+
 function DashboardAgrozzi(props) {
+
+  const [metrics, setMetrics] = useState([]);
+
+  const dataLoaded = (data) => {
+    setMetrics(data.metrics);
+  }
+
   return (
     <>
       <div className="row gutter-xs">
-        <CalculosAgrozziContainer></CalculosAgrozziContainer>
+        <div className="col-xs-12">
+          <div className="card" >
+            <div className="card-body" >
+              <CsvDownloader data={metrics} ></CsvDownloader>
+            </div>
+          </div>
+        </div>
+        <CalculosAgrozziContainer OnDataLoaded={dataLoaded} ></CalculosAgrozziContainer>
         {/* <IOControlContainer controlId="ad804cb8" ></IOControlContainer>
         <IOControlContainer controlId="b0a5f4e2" ></IOControlContainer>
         <IOControlContainer controlId="b5747c6e" ></IOControlContainer>
