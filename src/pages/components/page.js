@@ -81,51 +81,14 @@ function Chart(props) {
     return (<CLBarChart color={props.color} data={props.data} ></CLBarChart>);
 }
 
-export class ChartContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      data: [],
-      name: "---"
-    }
-    // this.loadData();
-  }
 
-  componentDidMount = () => {
-    this.loadData();
-  }
-
-  loadData = () => {
-
-    fetch(`https://api.citylink.cl/metrics/${this.props.metricId}`)
-    .then((res) => {return res.json()})
-    .then((result) => {
-      let data = [];
-      let name = result.metric.name.replace("_", " ");
-      for (let metric in result.metric.data) {
-        data.push({
-          "name": result.metric.data[metric].creation_date,
-          "uv": result.metric.data[metric].value
-        });
-      }
-
-      this.setState({
-        data,
-        name
-      });
-
-      setTimeout(this.loadData, 2000);
-    });
-
-  }
-
-  render() {
-    return (
-      <div className="col-xs-12 col-md-6">
+function ChartBox(props) {
+  return (
+    <div className="col-xs-12 col-md-6">
         <div className="card">
           <div className="card-body">
             <div className="pull-left">
-              <h4 className="card-title">{this.state.name[0].toUpperCase() + this.state.name.slice(1)}</h4>
+              <h4 className="card-title">{props.title}</h4>
             </div>
             <div className="pull-right" data-toggle="buttons">
               <label className="btn btn-outline-primary btn-xs btn-pill active">
@@ -142,15 +105,94 @@ export class ChartContainer extends Component {
           <div className="card-body">
             <div className="card-chart" id="page-container" style={{ height: "200px" }}>
               <div className="row body" style={{ width: "100%", height: "100%" }} >
-                <Chart color={this.props.color} chartType={this.props.chartType} data={this.state.data} ></Chart>
+                <Chart color={props.color} chartType={props.chartType} data={props.data} ></Chart>
               </div>
             </div>
           </div>
         </div>
       </div>
-    );
+  );
+}
+
+
+function withAPIData(WrappedComponent, retrieveURL, processData, processName) {
+  return class extends Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        data: [],
+        name: "---"
+      }
+    }
+
+    componentDidMount = () => {
+      this.loadData();
+    }
+
+    loadData = () => {
+
+      fetch(retrieveURL(this.props.metricId))
+      .then((res) => {return res.json()})
+      .then((result) => {
+        let data = processData(result);
+        let name = processName(result);
+
+        this.setState({
+          data,
+          name
+        });
+
+        setTimeout(this.loadData, 2000);
+      });
+
+    }
+
+    render() {
+      return (
+        <WrappedComponent
+          title={this.state.name[0].toUpperCase() + this.state.name.slice(1)}
+          data={this.state.data}
+          color={this.props.color}
+          chartType={this.props.chartType}
+        ></WrappedComponent>
+      );
+    }
   }
 }
+
+
+export const APIChartContainer = withAPIData(
+  ChartBox,
+  (metricId) => `https://api.citylink.cl/metrics/${metricId}`,
+  (result) => {
+    let data = [];
+    for (let metric in result.metric.data) {
+      data.push({
+        "name": result.metric.data[metric].creation_date,
+        "uv": result.metric.data[metric].value
+      });
+    }
+    return data
+  },
+  (result) => result.metric.name.replace("_", " ")
+);
+
+
+export const CalculationsChartContainer = withAPIData(
+  ChartBox,
+  () => "https://api.citylink.cl/calculo/262678678",
+  (result) => {
+    let data = [];
+    result.metrics.forEach(element => {
+      data.push({
+        "name": element.creation_date,
+        "uv": element.wind_speed_average
+      });
+    });
+    return data;
+  },
+  () => "velocidad del viento"
+);
 
 
 export class IOControl extends Component {

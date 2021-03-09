@@ -4,7 +4,7 @@ import "../styles/vendor.css";
 import "../styles/elephant.css";
 import "../styles/application.css";
 
-import { IOControlContainer, ChartContainer } from "./components/page";
+import { IOControlContainer, APIChartContainer, CalculationsChartContainer } from "./components/page";
 import WithLayout from "./components/layout";
 import WithLoginController from "./components/login";
 import { CSVLink } from "react-csv";
@@ -18,11 +18,11 @@ function DashboardProvi(props)
         <IOControlContainer controlId="ad804cb2" ></IOControlContainer>
       </div>
       <div className="row gutter-xs" >
-        <ChartContainer color="#7c55fb" chartType="Area" metricId="00a102e2" ></ChartContainer>
-        <ChartContainer color="#63d9ad" chartType="Area" metricId="00d69ddc" ></ChartContainer>
-        <ChartContainer color="#63d9ad" chartType="Area" metricId="01be1256" ></ChartContainer>
-        <ChartContainer color="#63d9ad" chartType="Area" metricId="022be6f2" ></ChartContainer>
-        <ChartContainer color="#63d9ad" chartType="Area" metricId="023a91c2" ></ChartContainer>
+        <APIChartContainer color="#7c55fb" chartType="Area" metricId="00a102e2" ></APIChartContainer>
+        <APIChartContainer color="#63d9ad" chartType="Area" metricId="00d69ddc" ></APIChartContainer>
+        <APIChartContainer color="#63d9ad" chartType="Area" metricId="01be1256" ></APIChartContainer>
+        <APIChartContainer color="#63d9ad" chartType="Area" metricId="022be6f2" ></APIChartContainer>
+        <APIChartContainer color="#63d9ad" chartType="Area" metricId="023a91c2" ></APIChartContainer>
       </div>
     </>
   );
@@ -38,17 +38,17 @@ function DashboardNico(props) {
         <IOControlContainer controlId="b31bb41e" ></IOControlContainer>
       </div>
       <div className="row gutter-xs" >
-        <ChartContainer color="#7c55fb" chartType="Area" metricId="ee123498" ></ChartContainer>
-        <ChartContainer color="#7c55fb" chartType="Area" metricId="6cedc79c" ></ChartContainer>
-        <ChartContainer color="#63d9ad" chartType="Area" metricId="bf9c3de0" ></ChartContainer>
-        <ChartContainer color="#63d9ad" chartType="Area" metricId="7d384f6a" ></ChartContainer>
-        <ChartContainer color="#63d9ad" chartType="Bar" metricId="f0e2a10e" ></ChartContainer>
+        <APIChartContainer color="#7c55fb" chartType="Area" metricId="ee123498" ></APIChartContainer>
+        <APIChartContainer color="#7c55fb" chartType="Area" metricId="6cedc79c" ></APIChartContainer>
+        <APIChartContainer color="#63d9ad" chartType="Area" metricId="bf9c3de0" ></APIChartContainer>
+        <APIChartContainer color="#63d9ad" chartType="Area" metricId="7d384f6a" ></APIChartContainer>
+        <APIChartContainer color="#63d9ad" chartType="Bar" metricId="f0e2a10e" ></APIChartContainer>
       </div>
     </>
   );
 }
 
-class CalculosAgrozziContainer extends React.Component {
+class AgrozziCalculationContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -196,17 +196,17 @@ function DashboardAgrozzi(props) {
             </div>
           </div>
         </div>
-        <CalculosAgrozziContainer OnDataLoaded={dataLoaded} ></CalculosAgrozziContainer>
+        <AgrozziCalculationContainer OnDataLoaded={dataLoaded} ></AgrozziCalculationContainer>
         {/* <IOControlContainer controlId="ad804cb8" ></IOControlContainer>
         <IOControlContainer controlId="b0a5f4e2" ></IOControlContainer>
         <IOControlContainer controlId="b5747c6e" ></IOControlContainer>
         <IOControlContainer controlId="b31bb41e" ></IOControlContainer> */}
       </div>
       <div className="row gutter-xs" >
-        <ChartContainer color="#7c55fb" chartType="Area" metricId="ad804cb8" ></ChartContainer>
-        <ChartContainer color="#63d9ad" chartType="Area" metricId="b0a5f4e2" ></ChartContainer>
-        <ChartContainer color="#63d9ad" chartType="Area" metricId="b5747c6e" ></ChartContainer>
-        <ChartContainer color="#63d9ad" chartType="Bar" metricId="ad804cb2" ></ChartContainer>
+        <APIChartContainer color="#7c55fb" chartType="Area" metricId="ad804cb8" ></APIChartContainer>
+        <APIChartContainer color="#63d9ad" chartType="Area" metricId="b0a5f4e2" ></APIChartContainer>
+        <CalculationsChartContainer color="#63d9ad" chartType="Area" metricId="b5747c6e" ></CalculationsChartContainer>
+        {/* <APIChartContainer color="#63d9ad" chartType="Bar" metricId="ad804cb2" ></APIChartContainer> */}
       </div>
     </>
   );
