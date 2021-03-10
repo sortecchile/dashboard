@@ -4,7 +4,7 @@ import "../styles/vendor.css";
 import "../styles/elephant.css";
 import "../styles/application.css";
 
-import { IOControlContainer, APIChartContainer, CalculationsChartContainer } from "./components/page";
+import { IOControlContainer, APIChartContainer, CalculationsChartContainer, SmallCalculationsChartContainer } from "./components/page";
 import WithLayout from "./components/layout";
 import WithLoginController from "./components/login";
 import { CSVLink } from "react-csv";
@@ -77,89 +77,134 @@ class AgrozziCalculationContainer extends React.Component {
             "cargando...."
             :
             <>
-              <div class="col-xs-6 col-md-3">
-                <div class="card">
-                  <div class="card-values">
-                    <div class="p-x">
+              <div className="col-xs-6 col-md-3">
+                <div className="card">
+                  <div className="card-values">
+                    <div className="p-x">
                       <small>Día del año</small>
-                      <h3 class="card-title fw-l">{this.state.data.metrics[0].day}</h3>
+                      <h3 className="card-title fw-l">{this.state.data.metrics[0].day}</h3>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-xs-6 col-md-3">
-                <div class="card">
-                  <div class="card-values">
-                    <div class="p-x">
+              <div className="col-xs-6 col-md-3">
+                <div className="card">
+                  <div className="card-values">
+                    <div className="p-x">
                       <small>Día del cultivo</small>
-                      <h3 class="card-title fw-l">{this.state.data.metrics[0].current_day}</h3>
+                      <h3 className="card-title fw-l">{this.state.data.metrics[0].current_day}</h3>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-xs-6 col-md-3">
-                <div class="card">
-                  <div class="card-values">
-                    <div class="p-x">
-                      <small>ET0</small>
-                      <h3 class="card-title fw-l">{this.state.data.metrics[0].eto.toFixed(1)}</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-xs-6 col-md-3">
-                <div class="card">
-                  <div class="card-values">
-                    <div class="p-x">
-                      <small>KC</small>
-                      <h3 class="card-title fw-l">{this.state.data.metrics[0].kc.toFixed(2)}</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-xs-6 col-md-3">
-                <div class="card">
-                  <div class="card-values">
-                    <div class="p-x">
+              <div className="col-xs-6 col-md-3">
+                <div className="card">
+                  <div className="card-values">
+                    <div className="p-x">
                       <small>ETC</small>
-                      <h3 class="card-title fw-l">{(this.state.data.metrics[0].kc * this.state.data.metrics[0].eto).toFixed(2)}</h3>
+                      <h3 className="card-title fw-l">{(this.state.data.metrics[0].kc * this.state.data.metrics[0].eto).toFixed(2)}</h3>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-xs-6 col-md-3">
-                <div class="card">
-                  <div class="card-values">
-                    <div class="p-x">
+              <div className="col-xs-6 col-md-3">
+                <div className="card">
+                  <div className="card-values">
+                    <div className="p-x">
+                      <small>ET0</small>
+                      <h3 className="card-title fw-l">{this.state.data.metrics[0].eto.toFixed(1)}</h3>
+                      <div style={{ height: "50px" }} >
+                        <SmallCalculationsChartContainer
+                          showLine={false}
+                          color="#63d9ad"
+                          chartType="Area"
+                          metricId="b5747c6e"
+                          field="eto"
+                        ></SmallCalculationsChartContainer>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-xs-6 col-md-3">
+                <div className="card">
+                  <div className="card-values">
+                    <div className="p-x">
+                      <small>KC</small>
+                      <h3 className="card-title fw-l">{this.state.data.metrics[0].kc.toFixed(2)}</h3>
+                      <div style={{ height: "50px" }} >
+                        <SmallCalculationsChartContainer
+                          showLine={false}
+                          color="#63d9ad"
+                          chartType="Area"
+                          metricId="b5747c6e"
+                          field="kc"
+                        ></SmallCalculationsChartContainer>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-xs-6 col-md-3">
+                <div className="card">
+                  <div className="card-values">
+                    <div className="p-x">
                       <small>Humedad promedio</small>
-                      <h3 class="card-title fw-l">{this.state.data.metrics[0].humidity_prom.toFixed(1)}</h3>
+                      <h3 className="card-title fw-l">{this.state.data.metrics[0].humidity_prom.toFixed(1)}</h3>
+                      <div style={{ height: "50px" }} >
+                        <SmallCalculationsChartContainer
+                          showLine={false}
+                          color="#63d9ad"
+                          chartType="Area"
+                          metricId="b5747c6e"
+                          field="humidity_prom"
+                        ></SmallCalculationsChartContainer>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-xs-6 col-md-3">
-                <div class="card">
-                  <div class="card-values">
-                    <div class="p-x">
+              <div className="col-xs-6 col-md-3">
+                <div className="card">
+                  <div className="card-values">
+                    <div className="p-x">
                       <small>Temperatura promedio</small>
-                      <h3 class="card-title fw-l">{this.state.data.metrics[0].temp_average.toFixed(1)}</h3>
+                      <h3 className="card-title fw-l">{this.state.data.metrics[0].temp_average.toFixed(1)}</h3>
+                      <div style={{ height: "50px" }} >
+                        <SmallCalculationsChartContainer
+                          showLine={false}
+                          color="#63d9ad"
+                          chartType="Area"
+                          metricId="b5747c6e"
+                          field="temp_average"
+                        ></SmallCalculationsChartContainer>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-xs-6 col-md-3">
-                <div class="card">
-                  <div class="card-values">
-                    <div class="p-x">
+              <div className="col-xs-6 col-md-3">
+                <div className="card">
+                  <div className="card-values">
+                    <div className="p-x">
                       <small>Velocidad promedio del viento</small>
-                      <h3 class="card-title fw-l">{this.state.data.metrics[0].wind_speed_average.toFixed(1)}</h3>
+                      <h3 className="card-title fw-l">{this.state.data.metrics[0].wind_speed_average.toFixed(1)}</h3>
+                      <div style={{ height: "50px" }} >
+                        <SmallCalculationsChartContainer
+                          showLine={false}
+                          color="#63d9ad"
+                          chartType="Area"
+                          metricId="b5747c6e"
+                          field="wind_speed_average"
+                        ></SmallCalculationsChartContainer>
+                      </div>
                     </div>
                   </div>
                 </div>

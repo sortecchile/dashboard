@@ -19,13 +19,12 @@ import {
 export default function CLLineChart(props) {
   return (
     <ResponsiveContainer>
-      <LineChart data={props.data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+      <LineChart data={props.data}>
         <CartesianGrid stroke="#101822" strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+        <XAxis dataKey="name" tick={props.showLine} axisLine={props.showLine} />
+        <YAxis tick={props.showLine} axisLine={props.showLine} />
         <Tooltip />
-        <Legend />
+        {/* <Legend /> */}
         <Line type="linear" dataKey="uv" stroke={props.color} />
       </LineChart>
     </ResponsiveContainer>
@@ -36,11 +35,10 @@ function CLAreaChart(props) {
 
   return (
     <ResponsiveContainer>
-      <AreaChart data={props.data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+      <AreaChart data={props.data}>
         <CartesianGrid stroke="#101822" strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+        <XAxis dataKey="name" tick={props.showLine} axisLine={props.showLine} />
+        <YAxis tick={props.showLine} axisLine={props.showLine} />
         <Tooltip />
         <Area type="monotone" dataKey="uv" stroke={props.color} fill={props.color} />
       </AreaChart>
@@ -56,13 +54,10 @@ function CLBarChart(props) {
         width={500}
         height={300}
         data={props.data}
-        margin={{
-          top: 20, right: 30, left: 20, bottom: 5,
-        }}
       >
         <CartesianGrid stroke="#101822" strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+        <XAxis dataKey="name" tick={props.showLine} axisLine={props.showLine} />
+        <YAxis tick={props.showLine} axisLine={props.showLine} />
         <Tooltip />
         <Legend />
         <Bar dataKey="uv" stackId="a" fill={props.color} fillOpacity={1} />
@@ -74,7 +69,7 @@ function CLBarChart(props) {
 
 function Chart(props) {
   if (props.chartType === "Area")
-    return (<CLAreaChart color={props.color} data={props.data} ></CLAreaChart>);
+    return (<CLAreaChart color={props.color} data={props.data} showLine={props.showLine} ></CLAreaChart>);
   else if (props.chartType === "Line")
     return (<CLLineChart color={props.color} data={props.data} ></CLLineChart>);
   else if (props.chartType === "Bar")
@@ -105,7 +100,7 @@ function ChartBox(props) {
           <div className="card-body">
             <div className="card-chart" id="page-container" style={{ height: "200px" }}>
               <div className="row body" style={{ width: "100%", height: "100%" }} >
-                <Chart color={props.color} chartType={props.chartType} data={props.data} ></Chart>
+                <Chart showLine={true} color={props.color} chartType={props.chartType} data={props.data} ></Chart>
               </div>
             </div>
           </div>
@@ -134,7 +129,7 @@ function withAPIData(WrappedComponent, retrieveURL, processData, processName) {
       fetch(retrieveURL(this.props.metricId))
       .then((res) => {return res.json()})
       .then((result) => {
-        let data = processData(result);
+        let data = processData(result, this.props.field);
         let name = processName(result);
 
         this.setState({
@@ -152,8 +147,7 @@ function withAPIData(WrappedComponent, retrieveURL, processData, processName) {
         <WrappedComponent
           title={this.state.name[0].toUpperCase() + this.state.name.slice(1)}
           data={this.state.data}
-          color={this.props.color}
-          chartType={this.props.chartType}
+          {...this.props}
         ></WrappedComponent>
       );
     }
@@ -193,6 +187,23 @@ export const CalculationsChartContainer = withAPIData(
   },
   () => "velocidad del viento"
 );
+
+
+export const SmallCalculationsChartContainer = withAPIData(
+  Chart,
+  () => "https://api.citylink.cl/calculo/262678678",
+  (result, field) => {
+    let data = [];
+    result.metrics.forEach(element => {
+      data.push({
+        "name": element.creation_date,
+        "uv": element[field]
+      });
+    });
+    return data;
+  },
+  () => "velocidad del viento"
+)
 
 
 export class IOControl extends Component {
