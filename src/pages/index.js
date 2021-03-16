@@ -251,7 +251,7 @@ function DashboardAgrozzi(props) {
         <APIChartContainer color="#7c55fb" chartType="Area" metricId="ad804cb8" ></APIChartContainer>
         <APIChartContainer color="#63d9ad" chartType="Area" metricId="b0a5f4e2" ></APIChartContainer>
         <CalculationsChartContainer color="#63d9ad" chartType="Area" metricId="b5747c6e" ></CalculationsChartContainer>
-        {/* <APIChartContainer color="#63d9ad" chartType="Bar" metricId="ad804cb2" ></APIChartContainer> */}
+        <APIChartContainer color="#63d9ad" chartType="Bar" metricId="ad804cb2" ></APIChartContainer>
       </div>
     </>
   );
