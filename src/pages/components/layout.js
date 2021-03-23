@@ -279,7 +279,7 @@ export default function WithLayout(Component) {
                   </ul>
                   <div className="title-bar">
                     <h1 className="title-bar-title">
-                      <span className="d-ib">Dashboard</span>
+                      <span className="d-ib"></span>
                     </h1>
                     <p className="title-bar-description">
                       <small>Bienvenido a tu panel.</small>

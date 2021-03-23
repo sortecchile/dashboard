@@ -21,9 +21,9 @@ export default function CLLineChart(props) {
     <ResponsiveContainer>
       <LineChart data={props.data}>
         <CartesianGrid stroke="#101822" strokeDasharray="3 3" />
-        <XAxis dataKey="name" tick={props.showLine} axisLine={props.showLine} />
-        <YAxis tick={props.showLine} axisLine={props.showLine} />
-        <Tooltip />
+        { props.onlyGraph ? "" : <XAxis dataKey="name" tick={props.showLine} axisLine={props.showLine} />}
+        { props.onlyGraph ? "" : <YAxis tick={props.showLine} axisLine={props.showLine} />}
+        { props.onlyGraph ? "" : <Tooltip />}
         {/* <Legend /> */}
         <Line type="linear" dataKey="uv" stroke={props.color} />
       </LineChart>
@@ -36,11 +36,11 @@ function CLAreaChart(props) {
   return (
     <ResponsiveContainer>
       <AreaChart data={props.data}>
-        <CartesianGrid stroke="#101822" strokeDasharray="3 3" />
-        <XAxis dataKey="name" tick={props.showLine} axisLine={props.showLine} />
-        <YAxis tick={props.showLine} axisLine={props.showLine} />
-        <Tooltip />
-        <Area type="monotone" dataKey="uv" stroke={props.color} fill={props.color} />
+        {/* <CartesianGrid stroke="#101822" strokeDasharray="3 3" /> */}
+        { props.onlyGraph ? "" : <XAxis dataKey="name" tick={props.showLine} axisLine={props.showLine} />}
+        { props.onlyGraph ? "" : <YAxis tick={props.showLine} axisLine={props.showLine} />}
+        { props.onlyGraph ? "" : <Tooltip />}
+        <Area type="monotone" dataKey="uv" stroke={props.color} fill={props.color} />;
       </AreaChart>
     </ResponsiveContainer>
   );
@@ -56,10 +56,10 @@ function CLBarChart(props) {
         data={props.data}
       >
         <CartesianGrid stroke="#101822" strokeDasharray="3 3" />
-        <XAxis dataKey="name" tick={props.showLine} axisLine={props.showLine} />
-        <YAxis tick={props.showLine} axisLine={props.showLine} />
-        <Tooltip />
-        <Legend />
+        { props.onlyGraph ? "" : <XAxis dataKey="name" tick={props.showLine} axisLine={props.showLine} />}
+        { props.onlyGraph ? "" : <YAxis tick={props.showLine} axisLine={props.showLine} />}
+        { props.onlyGraph ? "" : <Tooltip />}
+        { props.onlyGraph ? "" : <Legend />}
         <Bar dataKey="uv" stackId="a" fill={props.color} fillOpacity={1} />
       </BarChart>
     </ResponsiveContainer>
@@ -69,11 +69,11 @@ function CLBarChart(props) {
 
 function Chart(props) {
   if (props.chartType === "Area")
-    return (<CLAreaChart color={props.color} data={props.data} showLine={props.showLine} ></CLAreaChart>);
+    return (<CLAreaChart {...props} ></CLAreaChart>);
   else if (props.chartType === "Line")
-    return (<CLLineChart color={props.color} data={props.data} ></CLLineChart>);
+    return (<CLLineChart {...props} ></CLLineChart>);
   else if (props.chartType === "Bar")
-    return (<CLBarChart color={props.color} data={props.data} ></CLBarChart>);
+    return (<CLBarChart {...props} ></CLBarChart>);
 }
 
 

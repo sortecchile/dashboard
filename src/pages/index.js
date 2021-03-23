@@ -77,133 +77,142 @@ class AgrozziCalculationContainer extends React.Component {
             "cargando...."
             :
             <>
-              <div className="col-xs-6 col-md-3">
-                <div className="card">
-                  <div className="card-values">
-                    <div className="p-x">
-                      <small>Día del año</small>
-                      <h3 className="card-title fw-l">{this.state.data.metrics[0].day}</h3>
+              <div className="row" >
+                <div className="col-xs-6 col-md-4">
+                  <div className="card">
+                    <div className="card-values">
+                      <div className="p-x">
+                        <small>Día del año</small>
+                        <h3 className="card-title fw-l">{this.state.data.metrics[0].day}</h3>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="col-xs-6 col-md-3">
-                <div className="card">
-                  <div className="card-values">
-                    <div className="p-x">
-                      <small>Día del cultivo</small>
-                      <h3 className="card-title fw-l">{this.state.data.metrics[0].current_day}</h3>
+                <div className="col-xs-6 col-md-4">
+                  <div className="card">
+                    <div className="card-values">
+                      <div className="p-x">
+                        <small>Día del cultivo</small>
+                        <h3 className="card-title fw-l">{this.state.data.metrics[0].current_day}</h3>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="col-xs-6 col-md-3">
-                <div className="card">
-                  <div className="card-values">
-                    <div className="p-x">
-                      <small>ETC</small>
-                      <h3 className="card-title fw-l">{(this.state.data.metrics[0].kc * this.state.data.metrics[0].eto).toFixed(2)}</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-xs-6 col-md-3">
-                <div className="card">
-                  <div className="card-values">
-                    <div className="p-x">
-                      <small>ET0</small>
-                      <h3 className="card-title fw-l">{this.state.data.metrics[0].eto.toFixed(1)}</h3>
-                      <div style={{ height: "50px" }} >
-                        <SmallCalculationsChartContainer
-                          showLine={false}
-                          color="#63d9ad"
-                          chartType="Area"
-                          metricId="b5747c6e"
-                          field="eto"
-                        ></SmallCalculationsChartContainer>
+                <div className="col-xs-6 col-md-4">
+                  <div className="card">
+                    <div className="card-values">
+                      <div className="p-x">
+                        <small>ETC</small>
+                        <h3 className="card-title fw-l">{(this.state.data.metrics[0].kc * this.state.data.metrics[0].eto).toFixed(2)}</h3>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <div className="col-xs-6 col-md-3">
-                <div className="card">
-                  <div className="card-values">
-                    <div className="p-x">
-                      <small>KC</small>
-                      <h3 className="card-title fw-l">{this.state.data.metrics[0].kc.toFixed(2)}</h3>
-                      <div style={{ height: "50px" }} >
-                        <SmallCalculationsChartContainer
-                          showLine={false}
-                          color="#63d9ad"
-                          chartType="Area"
-                          metricId="b5747c6e"
-                          field="kc"
-                        ></SmallCalculationsChartContainer>
+              <hr/>
+              <div className="row" >
+                <div className="col-xs-6 col-md-4">
+                  <div className="card">
+                    <div className="card-values">
+                      <div className="p-x">
+                        <small>ET0</small>
+                        <h3 className="card-title fw-l">{this.state.data.metrics[0].eto.toFixed(1)}</h3>
+                        <div style={{ height: "50px" }} >
+                          <SmallCalculationsChartContainer
+                            showLine={false}
+                            color="#63d9ad"
+                            chartType="Area"
+                            metricId="b5747c6e"
+                            field="eto"
+                            onlyGraph={true}
+                          ></SmallCalculationsChartContainer>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="col-xs-6 col-md-3">
-                <div className="card">
-                  <div className="card-values">
-                    <div className="p-x">
-                      <small>Humedad promedio</small>
-                      <h3 className="card-title fw-l">{this.state.data.metrics[0].humidity_prom.toFixed(1)}</h3>
-                      <div style={{ height: "50px" }} >
-                        <SmallCalculationsChartContainer
-                          showLine={false}
-                          color="#63d9ad"
-                          chartType="Area"
-                          metricId="b5747c6e"
-                          field="humidity_prom"
-                        ></SmallCalculationsChartContainer>
+                <div className="col-xs-6 col-md-4">
+                  <div className="card">
+                    <div className="card-values">
+                      <div className="p-x">
+                        <small>KC</small>
+                        <h3 className="card-title fw-l">{this.state.data.metrics[0].kc.toFixed(2)}</h3>
+                        <div style={{ height: "50px" }} >
+                          <SmallCalculationsChartContainer
+                            showLine={false}
+                            color="#63d9ad"
+                            chartType="Area"
+                            metricId="b5747c6e"
+                            field="kc"
+                            onlyGraph={true}
+                          ></SmallCalculationsChartContainer>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="col-xs-6 col-md-3">
-                <div className="card">
-                  <div className="card-values">
-                    <div className="p-x">
-                      <small>Temperatura promedio</small>
-                      <h3 className="card-title fw-l">{this.state.data.metrics[0].temp_average.toFixed(1)}</h3>
-                      <div style={{ height: "50px" }} >
-                        <SmallCalculationsChartContainer
-                          showLine={false}
-                          color="#63d9ad"
-                          chartType="Area"
-                          metricId="b5747c6e"
-                          field="temp_average"
-                        ></SmallCalculationsChartContainer>
+                <div className="col-xs-6 col-md-4">
+                  <div className="card">
+                    <div className="card-values">
+                      <div className="p-x">
+                        <small>Humedad promedio</small>
+                        <h3 className="card-title fw-l">{this.state.data.metrics[0].humidity_prom.toFixed(1)}</h3>
+                        <div style={{ height: "50px" }} >
+                          <SmallCalculationsChartContainer
+                            showLine={false}
+                            color="#63d9ad"
+                            chartType="Area"
+                            metricId="b5747c6e"
+                            field="humidity_prom"
+                            onlyGraph={true}
+                          ></SmallCalculationsChartContainer>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="col-xs-6 col-md-3">
-                <div className="card">
-                  <div className="card-values">
-                    <div className="p-x">
-                      <small>Velocidad promedio del viento</small>
-                      <h3 className="card-title fw-l">{this.state.data.metrics[0].wind_speed_average.toFixed(1)}</h3>
-                      <div style={{ height: "50px" }} >
-                        <SmallCalculationsChartContainer
-                          showLine={false}
-                          color="#63d9ad"
-                          chartType="Area"
-                          metricId="b5747c6e"
-                          field="wind_speed_average"
-                        ></SmallCalculationsChartContainer>
+                <div className="col-xs-6 col-md-4">
+                  <div className="card">
+                    <div className="card-values">
+                      <div className="p-x">
+                        <small>Temperatura promedio</small>
+                        <h3 className="card-title fw-l">{this.state.data.metrics[0].temp_average.toFixed(1)}</h3>
+                        <div style={{ height: "50px" }} >
+                          <SmallCalculationsChartContainer
+                            showLine={false}
+                            color="#63d9ad"
+                            chartType="Area"
+                            metricId="b5747c6e"
+                            field="temp_average"
+                            onlyGraph={true}
+                          ></SmallCalculationsChartContainer>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-xs-6 col-md-4">
+                  <div className="card">
+                    <div className="card-values">
+                      <div className="p-x">
+                        <small>Velocidad promedio del viento</small>
+                        <h3 className="card-title fw-l">{this.state.data.metrics[0].wind_speed_average.toFixed(1)}</h3>
+                        <div style={{ height: "50px" }} >
+                          <SmallCalculationsChartContainer
+                            showLine={false}
+                            color="#63d9ad"
+                            chartType="Area"
+                            metricId="b5747c6e"
+                            field="wind_speed_average"
+                            onlyGraph={true}
+                          ></SmallCalculationsChartContainer>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -233,7 +242,7 @@ function DashboardAgrozzi(props) {
 
   return (
     <>
-      <div className="row gutter-xs">
+      <div className="row">
         <div className="col-xs-12">
           <div className="card" >
             <div className="card-body" >
@@ -241,12 +250,16 @@ function DashboardAgrozzi(props) {
             </div>
           </div>
         </div>
+      </div>
+      <hr/>
+      <div className="row gutter-xs">
         <AgrozziCalculationContainer OnDataLoaded={dataLoaded} ></AgrozziCalculationContainer>
         {/* <IOControlContainer controlId="ad804cb8" ></IOControlContainer>
         <IOControlContainer controlId="b0a5f4e2" ></IOControlContainer>
         <IOControlContainer controlId="b5747c6e" ></IOControlContainer>
         <IOControlContainer controlId="b31bb41e" ></IOControlContainer> */}
       </div>
+      <hr/>
       <div className="row gutter-xs" >
         <APIChartContainer color="#7c55fb" chartType="Area" metricId="ad804cb8" ></APIChartContainer>
         <APIChartContainer color="#63d9ad" chartType="Area" metricId="b0a5f4e2" ></APIChartContainer>
