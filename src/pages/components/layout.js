@@ -55,7 +55,7 @@ export default function WithLayout(Component) {
                 <div>
                   <ul className="nav navbar-nav navbar-right" style={{backgroundColor: "#7c55fb"}} >
                     <li className="visible-xs-block">
-                      <a onClick={this.onLogout} >{this.state.user} | Salir</a>
+                      <a href="#!" onClick={this.onLogout} >{this.state.user} | Salir</a>
                     </li>
                   </ul>
                 </div>

@@ -189,21 +189,17 @@ export const CalculationsChartContainer = withAPIData(
 );
 
 
-export const SmallCalculationsChartContainer = withAPIData(
-  Chart,
-  () => "https://api.citylink.cl/calculo/262678678",
-  (result, field) => {
-    let data = [];
-    result.metrics.forEach(element => {
-      data.push({
-        "name": element.creation_date,
-        "uv": element[field]
-      });
+export function SmallCalculationsChartContainer(props)
+{
+  const data = [];
+  props.data.forEach(element => {
+    data.push({
+      "name": element.creation_date,
+      "uv": element[props.field]
     });
-    return data;
-  },
-  () => "velocidad del viento"
-)
+  });
+  return (<Chart {...props} data={data} ></Chart>);
+}
 
 
 export class IOControl extends Component {

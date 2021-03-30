@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import "../styles/vendor.css";
 import "../styles/elephant.css";
@@ -49,31 +49,12 @@ function DashboardNico(props) {
 }
 
 class AgrozziCalculationContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: {}
-    }
-  }
-
-
-  componentDidMount = async () => {
-    const response = await fetch("https://api.citylink.cl/calculo/262678678");
-    const json_data = await response.json();
-
-    this.props.OnDataLoaded(json_data);
-
-    this.setState({
-      data: json_data
-    });
-  }
-
 
   render = () => {
     return (
       <>
           {
-            !this.state.data.metrics ?
+            this.props.metrics.length === 0 ?
             "cargando...."
             :
             <>
@@ -83,7 +64,7 @@ class AgrozziCalculationContainer extends React.Component {
                     <div className="card-values">
                       <div className="p-x">
                         <small>Día del año</small>
-                        <h3 className="card-title fw-l">{this.state.data.metrics[0].day}</h3>
+                        <h3 className="card-title fw-l">{this.props.metrics[0].day}</h3>
                       </div>
                     </div>
                   </div>
@@ -94,7 +75,7 @@ class AgrozziCalculationContainer extends React.Component {
                     <div className="card-values">
                       <div className="p-x">
                         <small>Día del cultivo</small>
-                        <h3 className="card-title fw-l">{this.state.data.metrics[0].current_day}</h3>
+                        <h3 className="card-title fw-l">{this.props.metrics[0].current_day}</h3>
                       </div>
                     </div>
                   </div>
@@ -105,7 +86,7 @@ class AgrozziCalculationContainer extends React.Component {
                     <div className="card-values">
                       <div className="p-x">
                         <small>ETC</small>
-                        <h3 className="card-title fw-l">{(this.state.data.metrics[0].kc * this.state.data.metrics[0].eto).toFixed(2)}</h3>
+                        <h3 className="card-title fw-l">{(this.props.metrics[0].kc * this.props.metrics[0].eto).toFixed(2)}</h3>
                       </div>
                     </div>
                   </div>
@@ -118,9 +99,10 @@ class AgrozziCalculationContainer extends React.Component {
                     <div className="card-values">
                       <div className="p-x">
                         <small>ET0</small>
-                        <h3 className="card-title fw-l">{this.state.data.metrics[0].eto.toFixed(1)}</h3>
+                        <h3 className="card-title fw-l">{this.props.metrics[0].eto.toFixed(1)}</h3>
                         <div style={{ height: "50px" }} >
                           <SmallCalculationsChartContainer
+                            data={this.props.metrics}
                             showLine={false}
                             color="#63d9ad"
                             chartType="Area"
@@ -139,9 +121,10 @@ class AgrozziCalculationContainer extends React.Component {
                     <div className="card-values">
                       <div className="p-x">
                         <small>KC</small>
-                        <h3 className="card-title fw-l">{this.state.data.metrics[0].kc.toFixed(2)}</h3>
+                        <h3 className="card-title fw-l">{this.props.metrics[0].kc.toFixed(2)}</h3>
                         <div style={{ height: "50px" }} >
                           <SmallCalculationsChartContainer
+                            data={this.props.metrics}
                             showLine={false}
                             color="#63d9ad"
                             chartType="Area"
@@ -160,9 +143,10 @@ class AgrozziCalculationContainer extends React.Component {
                     <div className="card-values">
                       <div className="p-x">
                         <small>Humedad promedio</small>
-                        <h3 className="card-title fw-l">{this.state.data.metrics[0].humidity_prom.toFixed(1)}</h3>
+                        <h3 className="card-title fw-l">{this.props.metrics[0].humidity_prom.toFixed(1)}</h3>
                         <div style={{ height: "50px" }} >
                           <SmallCalculationsChartContainer
+                            data={this.props.metrics}
                             showLine={false}
                             color="#63d9ad"
                             chartType="Area"
@@ -181,9 +165,10 @@ class AgrozziCalculationContainer extends React.Component {
                     <div className="card-values">
                       <div className="p-x">
                         <small>Temperatura promedio</small>
-                        <h3 className="card-title fw-l">{this.state.data.metrics[0].temp_average.toFixed(1)}</h3>
+                        <h3 className="card-title fw-l">{this.props.metrics[0].temp_average.toFixed(1)}</h3>
                         <div style={{ height: "50px" }} >
                           <SmallCalculationsChartContainer
+                            data={this.props.metrics}
                             showLine={false}
                             color="#63d9ad"
                             chartType="Area"
@@ -202,9 +187,10 @@ class AgrozziCalculationContainer extends React.Component {
                     <div className="card-values">
                       <div className="p-x">
                         <small>Velocidad promedio del viento</small>
-                        <h3 className="card-title fw-l">{this.state.data.metrics[0].wind_speed_average.toFixed(1)}</h3>
+                        <h3 className="card-title fw-l">{this.props.metrics[0].wind_speed_average.toFixed(1)}</h3>
                         <div style={{ height: "50px" }} >
                           <SmallCalculationsChartContainer
+                            data={this.props.metrics}
                             showLine={false}
                             color="#63d9ad"
                             chartType="Area"
@@ -225,20 +211,23 @@ class AgrozziCalculationContainer extends React.Component {
   }
 }
 
-function CsvDownloader(props) {
-
-  return (
-    <CSVLink {...props} target="_blank" >descargar csv</CSVLink>
-  );
-}
-
 function DashboardAgrozzi(props) {
 
   const [metrics, setMetrics] = useState([]);
+  useEffect(() => {
+    const loadData = async () => {
+      const response = await fetch("https://api.citylink.cl/calculo/262678678");
+      const json_data = await response.json();
+      setMetrics(json_data.metrics);
+    }
 
-  const dataLoaded = (data) => {
-    setMetrics(data.metrics);
-  }
+    if (metrics.length === 0) {
+      loadData();
+    }
+
+    let interval = setInterval(loadData, 10000);
+    return () => { clearInterval(interval) }
+  });
 
   return (
     <>
@@ -246,14 +235,14 @@ function DashboardAgrozzi(props) {
         <div className="col-xs-12">
           <div className="card" >
             <div className="card-body" >
-              <CsvDownloader data={metrics} ></CsvDownloader>
+              <CSVLink data={metrics} target="_blank" >descargar csv</CSVLink>
             </div>
           </div>
         </div>
       </div>
       <hr/>
       <div className="row gutter-xs">
-        <AgrozziCalculationContainer OnDataLoaded={dataLoaded} ></AgrozziCalculationContainer>
+        <AgrozziCalculationContainer metrics={metrics} ></AgrozziCalculationContainer>
         {/* <IOControlContainer controlId="ad804cb8" ></IOControlContainer>
         <IOControlContainer controlId="b0a5f4e2" ></IOControlContainer>
         <IOControlContainer controlId="b5747c6e" ></IOControlContainer>
