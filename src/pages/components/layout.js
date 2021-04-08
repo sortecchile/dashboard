@@ -29,9 +29,9 @@ export default function WithLayout(Component) {
           <div className="layout-header">
             <div className="navbar navbar-default">
               <div className="navbar-header">
-                {/* <a className="navbar-brand navbar-brand-center" ui-sref="dashboards.dashboard-1" >
-                  <img className="navbar-brand-logo" src="https://www.citylink.cl/img/logo-white4.png" alt="Elephant"></img>
-                </a> */}
+                <a className="navbar-brand navbar-brand-center" ui-sref="dashboards.dashboard-1" >
+                  <img className="navbar-brand-logo" src="https://www.citylink.cl/img/logo-white5.png" alt="Citylink"></img>
+                </a>
                 <button className="navbar-toggler visible-xs-block collapsed" type="button">
                   <span className="sr-only">Toggle navigation</span>
                   <span className="bars">

@@ -163,7 +163,7 @@ export const APIChartContainer = withAPIData(
     for (let metric in result.metric.data) {
       data.push({
         "name": result.metric.data[metric].creation_date,
-        "uv": result.metric.data[metric].value
+        "uv": Math.abs(result.metric.data[metric].value)
       });
     }
     return data
