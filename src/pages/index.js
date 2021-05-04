@@ -15,27 +15,14 @@ class ForecastCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prediction: [
-        {
-          "id": 1,
-          "day": "Martes",
-          "min": 10,
-          "max": 20
-        },
-        {
-          "id": 2,
-          "day": "Martes",
-          "min": 10,
-          "max": 20
-        }
-      ]
+      predictions: []
     }
   }
 
   componentDidMount = async () => {
 
     const response = await fetch(
-      "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=80b6e0d16fa5125f6a68bab5b2f13c6c"
+      "https://api.openweathermap.org/data/2.5/onecall?lat=-40.1261724&lon=-72.3935986&exclude=current,minutely,hourly,alerts&appid=80b6e0d16fa5125f6a68bab5b2f13c6c"
     );
     const json_data = await response.json();
 
@@ -43,27 +30,19 @@ class ForecastCard extends React.Component {
     const days = [
       "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
     ];
-    const predictions = json_data["list"].map((item) => {
+    const predictions = json_data["daily"].map((item) =>
+    {
       var date = new Date();
       date.setTime(item.dt*1000); // javascript timestamps are in milliseconds
       return {
         "day": days[date.getDay()],
-        "min": parseInt(item.main.temp_min * 0.1),
-        "max": parseInt(item.main.temp_max * 0.1)
+        "min": parseInt(item.temp.min * 0.1),
+        "max": parseInt(item.temp.max * 0.1),
+        "humidity": item.humidity
       }
     });
-    const days_added = [];
-    const predictions_filtered = predictions.filter((item) => {
-      if (!~days_added.indexOf(item.day))
-      {
-        days_added.push(item.day);
-        return true;
-      }
 
-      return false;
-    });
-
-    this.setState({ prediction: predictions_filtered });
+    this.setState({ predictions });
   }
 
   // componentDidMount = async () => {
@@ -84,17 +63,21 @@ class ForecastCard extends React.Component {
               <th></th>
               <th>min</th>
               <th>max</th>
+              <th>humedad</th>
             </tr>
           </thead>
           <tbody>
             {
-              this.state.prediction.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.day}</td>
-                  <td>{item.min}</td>
-                  <td>{item.max}</td>
-                </tr>
-              ))
+              this.state.predictions.map((item) => {
+                return (
+                  <tr key={item.id}>
+                    <td>{item.day}</td>
+                    <td>{item.min}</td>
+                    <td>{item.max}</td>
+                    <td>{item.humidity}%</td>
+                  </tr>
+                );
+              })
             }
 
           </tbody>

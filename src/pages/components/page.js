@@ -89,6 +89,9 @@ function ChartBox(props) {
               <label className="btn btn-outline-primary btn-xs btn-pill active">
                 <input type="radio" name="options" id="option1" ></input> Últimas 24hr
               </label>
+              <label className="btn btn-outline-primary btn-xs btn-pill active">
+                <input type="radio" name="options" id="option1" ></input> Últimos 7 días
+              </label>
               {/* <label className="btn btn-outline-primary btn-xs btn-pill">
                 <input type="radio" name="options" id="option2" ></input> Últimos 7 días
               </label>
