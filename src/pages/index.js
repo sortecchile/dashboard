@@ -22,7 +22,7 @@ class ForecastCard extends React.Component {
   componentDidMount = async () => {
 
     const response = await fetch(
-      "https://api.openweathermap.org/data/2.5/onecall?lat=-40.1261724&lon=-72.3935986&exclude=current,minutely,hourly,alerts&appid=80b6e0d16fa5125f6a68bab5b2f13c6c"
+      "https://api.openweathermap.org/data/2.5/onecall?lat=-34.3877764&lon=-70.9161862&exclude=current,minutely,hourly,alerts&appid=80b6e0d16fa5125f6a68bab5b2f13c6c"
     );
     const json_data = await response.json();
 
@@ -325,6 +325,18 @@ function DashboardAgrozzi(props) {
             <ForecastCard></ForecastCard>
           </div>
           <div className="col-xs-9" >
+            <h4>Ubicación aproximada de la estación</h4>
+            <iframe
+              height="330"
+              style={{border:0, width: "100%"}}
+              loading="lazy"
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD6euw2yRV9YZUQrVazcLPMkJrWJBHTpmI&q=H-510, Rengo, O'Higgins&zoom=15&maptype=satellite">
+            </iframe>
+          </div>
+        </div>
+        <hr/>
+        <div className="row" >
+          <div className="col-xs-12" >
             <AgrozziCalculationContainer metrics={metrics} ></AgrozziCalculationContainer>
           </div>
         </div>
