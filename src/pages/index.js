@@ -22,7 +22,7 @@ class ForecastCard extends React.Component {
   componentDidMount = async () => {
 
     const response = await fetch(
-      "https://api.openweathermap.org/data/2.5/onecall?lat=-34.3877764&lon=-70.9161862&exclude=current,minutely,hourly,alerts&appid=80b6e0d16fa5125f6a68bab5b2f13c6c"
+      "https://api.openweathermap.org/data/2.5/onecall?lat=-34.3653353&lon=-70.8971369&exclude=current,minutely,hourly,alerts&appid=80b6e0d16fa5125f6a68bab5b2f13c6c"
     );
     const json_data = await response.json();
 
@@ -351,6 +351,7 @@ function DashboardAgrozzi(props) {
         <APIChartContainer color="#63d9ad" chartType="Area" metricId="b0a5f4e2" ></APIChartContainer>
         <CalculationsChartContainer color="#63d9ad" chartType="Area" metricId="b5747c6e" ></CalculationsChartContainer>
         <APIChartContainer color="#63d9ad" chartType="Bar" metricId="ad804cb2" ></APIChartContainer>
+        <APIChartContainer color="#63d9ad" chartType="Area" metricId="fbdbb1ee" ></APIChartContainer>
       </div>
     </>
   );

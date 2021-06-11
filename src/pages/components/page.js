@@ -85,12 +85,12 @@ function ChartBox(props) {
             <div className="pull-left">
               <h4 className="card-title">{props.title}</h4>
             </div>
-            <div className="pull-right" data-toggle="buttons">
+            <div className="pull-right" data-toggle="buttons" onChange={props.onSelect} >
               <label className="btn btn-outline-primary btn-xs btn-pill active">
-                <input type="radio" name="options" id="option1" ></input> Últimas 24hr
+                <input type="radio" name="options" id="option_time" value="24" ></input> Últimas 24hr
               </label>
               <label className="btn btn-outline-primary btn-xs btn-pill active">
-                <input type="radio" name="options" id="option1" ></input> Últimos 7 días
+                <input type="radio" name="options" id="option_time" value="168" ></input> Últimos 7 días
               </label>
               {/* <label className="btn btn-outline-primary btn-xs btn-pill">
                 <input type="radio" name="options" id="option2" ></input> Últimos 7 días
@@ -119,7 +119,8 @@ function withAPIData(WrappedComponent, retrieveURL, processData, processName) {
       super(props)
       this.state = {
         data: [],
-        name: "---"
+        name: "---",
+        hours_back: 24
       }
     }
 
@@ -129,7 +130,7 @@ function withAPIData(WrappedComponent, retrieveURL, processData, processName) {
 
     loadData = () => {
 
-      fetch(retrieveURL(this.props.metricId))
+      fetch(retrieveURL(this.props.metricId, this.state.hours_back))
       .then((res) => {return res.json()})
       .then((result) => {
         let data = processData(result, this.props.field);
@@ -150,6 +151,9 @@ function withAPIData(WrappedComponent, retrieveURL, processData, processName) {
         <WrappedComponent
           title={this.state.name[0].toUpperCase() + this.state.name.slice(1)}
           data={this.state.data}
+          onSelect={(event) => {
+            this.setState({ hours_back: event.target.value });
+          }}
           {...this.props}
         ></WrappedComponent>
       );
@@ -160,7 +164,10 @@ function withAPIData(WrappedComponent, retrieveURL, processData, processName) {
 
 export const APIChartContainer = withAPIData(
   ChartBox,
-  (metricId) => `https://api.citylink.cl/metrics/${metricId}`,
+  (metricId, hours_back) => {
+    console.log("llegaaaa", metricId, hours_back);
+    return `https://api.citylink.cl/metrics/${metricId}?hours_back=${hours_back}`
+  },
   (result) => {
     let data = [];
     for (let metric in result.metric.data) {
