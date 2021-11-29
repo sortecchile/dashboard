@@ -79,7 +79,7 @@ function Chart(props) {
 
 function ChartBox(props) {
   return (
-    <div className="col-xs-12 col-md-6">
+    <div className={"col-xs-12 col-md-" + props.cols}>
         <div className="card">
           <div className="card-body">
             <div className="pull-left">
@@ -110,6 +110,10 @@ function ChartBox(props) {
         </div>
       </div>
   );
+}
+
+ChartBox.defaultProps = {
+  cols: 6
 }
 
 
@@ -165,7 +169,6 @@ function withAPIData(WrappedComponent, retrieveURL, processData, processName) {
 export const APIChartContainer = withAPIData(
   ChartBox,
   (metricId, hours_back) => {
-    console.log("llegaaaa", metricId, hours_back);
     return `https://api.citylink.cl/metrics/${metricId}?hours_back=${hours_back}`
   },
   (result) => {

@@ -358,10 +358,91 @@ function DashboardAgrozzi(props) {
 }
 
 
+function DashboardSensornpk()
+{
+  const [metrics, setMetrics] = useState([]);
+  useEffect(() => {
+    const loadData = async () => {
+      const response = await fetch("https://api.citylink.cl/calculo/262678678");
+      const json_data = await response.json();
+      setMetrics(json_data.metrics);
+    }
+
+    if (metrics.length === 0) {
+      loadData();
+    }
+
+    let interval = setInterval(loadData, 10000);
+    return () => { clearInterval(interval) }
+  });
+
+  return (
+    <>
+      <div className="row">
+        <div className="col-xs-12">
+          <div className="card" >
+            <div className="card-body" >
+              <CSVLink data={metrics} target="_blank" >descargar csv</CSVLink>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div className="row gutter-xs">
+        <div className="row" >
+          {/* <div className="col-xs-3" >
+            <ForecastCard></ForecastCard>
+          </div> */}
+          <div className="col-xs-12" >
+            <h4>Ubicación aproximada de las estaciones</h4>
+            <iframe
+              height="330"
+              style={{border:0, width: "100%"}}
+              loading="lazy"
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD6euw2yRV9YZUQrVazcLPMkJrWJBHTpmI&q=H-510, Rengo, O'Higgins&zoom=15&maptype=satellite">
+            </iframe>
+          </div>
+        </div>
+        <hr/>
+        <div className="row" >
+          <div className="col-xs-12" >
+            <AgrozziCalculationContainer metrics={metrics} ></AgrozziCalculationContainer>
+          </div>
+        </div>
+        {/* <IOControlContainer controlId="ad804cb8" ></IOControlContainer>
+        <IOControlContainer controlId="b0a5f4e2" ></IOControlContainer>
+        <IOControlContainer controlId="b5747c6e" ></IOControlContainer>
+        <IOControlContainer controlId="b31bb41e" ></IOControlContainer> */}
+      </div>
+      <hr/>
+      <div className="row gutter-xs" >
+        <h3>Sensor 1</h3>
+        <APIChartContainer cols="4" color="#7c55fb" chartType="Area" metricId="ad804cb8" ></APIChartContainer>
+        <APIChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="b0a5f4e2" ></APIChartContainer>
+        <CalculationsChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="b5747c6e" ></CalculationsChartContainer>
+      </div>
+      <div className="row gutter-xs" >
+        <h3>Sensor 2</h3>
+        <APIChartContainer cols="4" color="#7c55fb" chartType="Area" metricId="ad804cb8" ></APIChartContainer>
+        <APIChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="b0a5f4e2" ></APIChartContainer>
+        <CalculationsChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="b5747c6e" ></CalculationsChartContainer>
+      </div>
+      <div className="row gutter-xs" >
+        <h3>Sensor 3</h3>
+        <APIChartContainer cols="4" color="#7c55fb" chartType="Area" metricId="ad804cb8" ></APIChartContainer>
+        <APIChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="b0a5f4e2" ></APIChartContainer>
+        <CalculationsChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="b5747c6e" ></CalculationsChartContainer>
+      </div>
+    </>
+  );
+}
+
+
 function getDashboardBySite(site_name)
 {
   if (site_name === "provi") return DashboardProvi;
   if (site_name === "agrozzi") return DashboardAgrozzi;
+  if (site_name === "sensornpk") return DashboardSensornpk;
   return DashboardNico;
 }
 
