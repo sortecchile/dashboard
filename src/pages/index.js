@@ -417,21 +417,21 @@ function DashboardSensornpk()
       <hr/>
       <div className="row gutter-xs" >
         <h3>Sensor 1</h3>
-        <APIChartContainer cols="4" color="#7c55fb" chartType="Area" metricId="ad804cb8" ></APIChartContainer>
-        <APIChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="b0a5f4e2" ></APIChartContainer>
-        <CalculationsChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="b5747c6e" ></CalculationsChartContainer>
+        <APIChartContainer cols="4" color="#7c55fb" chartType="Area" metricId="d888f5e2" ></APIChartContainer>
+        <APIChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="03ad0d44" ></APIChartContainer>
+        <APIChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="185c9d5e" ></APIChartContainer>
       </div>
       <div className="row gutter-xs" >
         <h3>Sensor 2</h3>
-        <APIChartContainer cols="4" color="#7c55fb" chartType="Area" metricId="ad804cb8" ></APIChartContainer>
-        <APIChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="b0a5f4e2" ></APIChartContainer>
-        <CalculationsChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="b5747c6e" ></CalculationsChartContainer>
+        <APIChartContainer cols="4" color="#7c55fb" chartType="Area" metricId="eea85976" ></APIChartContainer>
+        <APIChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="09dc224a" ></APIChartContainer>
+        <APIChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="1e094874" ></APIChartContainer>
       </div>
       <div className="row gutter-xs" >
         <h3>Sensor 3</h3>
-        <APIChartContainer cols="4" color="#7c55fb" chartType="Area" metricId="ad804cb8" ></APIChartContainer>
-        <APIChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="b0a5f4e2" ></APIChartContainer>
-        <CalculationsChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="b5747c6e" ></CalculationsChartContainer>
+        <APIChartContainer cols="4" color="#7c55fb" chartType="Area" metricId="f773cb26" ></APIChartContainer>
+        <APIChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="0f3c9e4a" ></APIChartContainer>
+        <APIChartContainer cols="4" color="#63d9ad" chartType="Area" metricId="24e21824" ></APIChartContainer>
       </div>
     </>
   );
