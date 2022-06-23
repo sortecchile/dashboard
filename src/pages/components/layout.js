@@ -30,7 +30,7 @@ export default function WithLayout(Component) {
             <div className="navbar navbar-default">
               <div className="navbar-header">
                 <a className="navbar-brand navbar-brand-center" ui-sref="dashboards.dashboard-1" >
-                  <img className="navbar-brand-logo" src="https://www.citylink.cl/img/logo-white5.png" alt="Citylink"></img>
+                  <img className="navbar-brand-logo" src="https://www.miido.cl/img/miido.png" alt="Miido"></img>
                 </a>
                 <button className="navbar-toggler visible-xs-block collapsed" type="button">
                   <span className="sr-only">Toggle navigation</span>
